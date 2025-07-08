@@ -44,12 +44,12 @@ const courseData = {
 };
 
 const CourseDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [showAllTopics, setShowAllTopics] = useState(false);
   const [quizAttempts, setQuizAttempts] = useState(0);
   const [showRegisterPrompt, setShowRegisterPrompt] = useState(false);
 
-  const course = courseData[id];
+  const course = courseData[id as keyof typeof courseData];
 
   if (!course) {
     return <div>Course not found</div>;
@@ -93,7 +93,7 @@ const CourseDetail = () => {
     "Follow industry best practices and coding standards"
   ];
 
-  const handleQuizClick = (quizId) => {
+  const handleQuizClick = (quizId: number) => {
     if (quizId === 4) {
       setShowRegisterPrompt(true);
     } else {
