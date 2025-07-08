@@ -2,16 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
-interface CourseCardProps {
-  id: string;
-  title: string;
-  image: string;
-  description: string;
-  duration: string;
-  level: string;
-}
-
-const CourseCard = ({ id, title, image, description, duration, level }: CourseCardProps) => {
+const CourseCard = ({ id, title, image, description, duration, level }) => {
   return (
     <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
       <div className="relative overflow-hidden">
