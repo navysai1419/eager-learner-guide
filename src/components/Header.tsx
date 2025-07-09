@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import RegistrationDialog from "./ui/RegistrationDialog";
+import SignInDialog from "./ui/SignInDialog";
 
 const Header = () => {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 overflow-y-hidden">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-2">
@@ -11,7 +13,7 @@ const Header = () => {
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-course-gradient-start to-course-gradient-end flex items-center justify-center">
               <span className="text-white font-bold text-sm">L</span>
             </div>
-            <span className="text-xl font-bold text-primary">LearnHub</span>
+            <span className="text-xl font-bold text-primary">Laura Tek</span>
           </Link>
         </div>
 
@@ -40,11 +42,9 @@ const Header = () => {
         {/* Auth Buttons */}
         <div className="flex items-center space-x-3">
           <Button variant="ghost" size="sm">
-            Sign In
+            <SignInDialog/>
           </Button>
-          <Button variant="auth" size="sm">
-            Sign Up
-          </Button>
+          <RegistrationDialog />
         </div>
       </div>
     </header>
