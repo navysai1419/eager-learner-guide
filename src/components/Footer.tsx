@@ -11,7 +11,7 @@ const Footer = () => {
               <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-course-gradient-start to-course-gradient-end flex items-center justify-center">
                 <span className="text-white font-bold text-sm">L</span>
               </div>
-              <span className="text-xl font-bold text-primary">LearnHub</span>
+              <span className="text-xl font-bold text-primary">Laura Tek</span>
             </div>
             <p className="text-muted-foreground text-sm">
               Empowering careers through quality education and industry-relevant courses.

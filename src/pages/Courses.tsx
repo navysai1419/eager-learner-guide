@@ -61,7 +61,9 @@ const allCourses = [
 const Courses = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+     <div className="sticky top-0 z-50 bg-background">
+        <Header />
+      </div>
       
       {/* Page Header */}
       <section className="py-16 bg-gradient-to-r from-course-hero to-primary text-white">

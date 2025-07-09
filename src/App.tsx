@@ -7,6 +7,15 @@ import Home from "./pages/Home";
 import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import NotFound from "./pages/NotFound";
+import Jobs from "./components/ui/jobs";
+import Dashboard from "./components/ui/Dashboard";
+import Analytics from "./components/ui/Analytics";
+import Settings from "./components/ui/settings";
+import Calendar from "./components/calendar";
+import Assessments from "./components/assessments&grades";
+import Compiler from "./components/ui/compiler";
+import Attendance from "./components/ui/attendance";
+import MyCourses from "./components/mycourses";
 
 const queryClient = new QueryClient();
 
@@ -19,9 +28,19 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/jobs" element={<Jobs/>}/>
+          <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/course/:id" element={<CourseDetail />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
+          <Route path="/dashboard/courses" element={<Courses />} />
+          <Route path="/dashboard/analytics" element={<Analytics />} />
+          <Route path="/dashboard/calendar" element={<Calendar />} />
+          <Route path="/dashboard/settings" element={<Settings />} />
+          <Route path="/dashboard/mycourses" element={<MyCourses />} />
+          <Route path="/dashboard/calendar" element={<Calendar />} />
+          <Route path="/dashboard/attendance" element={<Attendance />} />
+          <Route path="/dashboard/compiler" element={<Compiler />} />
+          <Route path="/dashboard/assessments" element={<Assessments />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
