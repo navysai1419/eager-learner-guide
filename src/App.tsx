@@ -16,6 +16,8 @@ import Assessments from "./components/assessments&grades";
 import Compiler from "./components/ui/compiler";
 import Attendance from "./components/ui/attendance";
 import MyCourses from "./components/mycourses";
+import SuccessStories from "./components/ui/Successstories";
+// import Contactus from "./components/ui/contactus";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +34,7 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/course/:id" element={<CourseDetail />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/dashboard/courses" element={<Courses />} />
+          <Route path="/dashboard/courses" element={<MyCourses />} />
           <Route path="/dashboard/analytics" element={<Analytics />} />
           <Route path="/dashboard/calendar" element={<Calendar />} />
           <Route path="/dashboard/settings" element={<Settings />} />
@@ -41,6 +43,7 @@ const App = () => (
           <Route path="/dashboard/attendance" element={<Attendance />} />
           <Route path="/dashboard/compiler" element={<Compiler />} />
           <Route path="/dashboard/assessments" element={<Assessments />} />
+          <Route path="/dashboard/success-stories" element={<SuccessStories />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

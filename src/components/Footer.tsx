@@ -76,7 +76,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 LearnHub. All rights reserved.</p>
+          <p>&copy; 2024 Laura Tek. All rights reserved.</p>
         </div>
       </div>
     </footer>

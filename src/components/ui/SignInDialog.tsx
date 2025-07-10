@@ -4,22 +4,37 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { login } from "@/services/apiservices";
 
 const SignInDialog = () => {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (email === "user@example.com" && password === "password123") {
-      setOpen(false);
-      navigate("/dashboard");
-    } else {
-      alert("Invalid email or password");
+    setError("");
+    setLoading(true);
+    try {
+      const res = await login({ email, password });
+      if (res && res.access_token) {
+        localStorage.setItem('access_token', res.access_token);
+        setOpen(false);
+        navigate("/dashboard");
+      } else {
+        setError(res?.message || "Invalid email or password");
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || "Login failed");
+      } else {
+        setError("Login failed");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,8 +71,9 @@ const SignInDialog = () => {
                 required
               />
             </div>
-            <Button type="submit" className="w-full">
-              Sign In
+            {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? "Signing In..." : "Sign In"}
             </Button>
           </form>
         </div>

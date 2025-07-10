@@ -71,7 +71,7 @@ export default {
 					}
 				},
 				instructor: 'hsl(var(--instructor-bg))',
-				success: 'hsl(var(--success-green))',
+				success: 'hsl(var(--success-blue))',
 				warning: 'hsl(var(--warning-orange))'
 			},
 			borderRadius: {
