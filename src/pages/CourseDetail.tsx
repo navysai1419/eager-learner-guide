@@ -6,12 +6,19 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import RegistrationDialog from "@/components/ui/RegistrationDialog";
 
 // Import images
 import webDevCourse from "@/assets/web-development-course.jpg";
 import dataScienceCourse from "@/assets/data-science-course.jpg";
 import digitalMarketingCourse from "@/assets/digital-marketing-course.jpg";
 import instructorPortrait from "@/assets/instructor-portrait.jpg";
+import Contactus from "@/components/ui/contactus";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/theme-monokai";
+import Attendance from "@/components/ui/attendance";
 
 const courseData = {
   "web-development": {
@@ -48,6 +55,19 @@ const CourseDetail = () => {
   const [showAllTopics, setShowAllTopics] = useState(false);
   const [quizAttempts, setQuizAttempts] = useState(0);
   const [showRegisterPrompt, setShowRegisterPrompt] = useState(false);
+  const [regOpen, setRegOpen] = useState(false);
+  const [regOpen1, setRegOpen1] = useState(false);
+  const [regDialogOpen, setRegDialogOpen] = useState(false);
+   const [regDialogOpen1, setRegDialogOpen1] = useState(false);
+
+  const [code, setCode] = useState('// Write your JavaScript code here\nconsole.log("Hello, World!");');
+  const [output, setOutput] = useState('');
+  const [error, setError] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('javascript');
+
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [showContactDialog, setShowContactDialog] = useState(false);
 
   const course = courseData[id as keyof typeof courseData];
 
@@ -69,7 +89,15 @@ const CourseDetail = () => {
     "Performance Optimization",
     "Final Project"
   ];
-
+  const codingQuestions = [
+    {
+      id: 1,
+      title: "Check Even or Odd",
+      question: "Write a program to read an integer and print even or odd.",
+      scenario: "Using if-else statement.",
+      expectedOutput: "Input: 4 -> Output: Even\nInput: 7 -> Output: Odd"
+    }
+  ];
   const quizzes = [
     { id: 1, title: "HTML & CSS Quiz", completed: false },
     { id: 2, title: "JavaScript Fundamentals", completed: false },
@@ -93,14 +121,82 @@ const CourseDetail = () => {
     "Follow industry best practices and coding standards"
   ];
 
-  const handleQuizClick = (quizId: number) => {
-    if (quizId === 4) {
-      setShowRegisterPrompt(true);
-    } else {
-      setQuizAttempts(prev => prev + 1);
+  const projectDetails = [
+    {
+      content: "A personal portfolio website showcases your skills, projects, and experiences to potential employers or clients. It typically includes sections like About Me, Projects, Skills, and Contact, with a clean, responsive design. Below is a simple implementation using HTML, CSS, and JavaScript, styled with Tailwind CSS for a modern look.",
+      technologies: ["React", "Tailwind CSS", "Node.js"],
+      description: "A personal portfolio website to showcase your skills and projects."
+    },
+    {
+      content: "A todo application allows users to create, update, and delete tasks. It typically includes features like user authentication, task categorization, and deadline reminders. Below is a simple implementation using React and Redux.",
+      technologies: ["React", "Redux", "Express.js"],
+      description: "A todo application with advanced state management."
+    },
+    {
+      content: "An e-commerce backend API handles product listings, shopping cart functionality, and user authentication. It typically includes features like payment processing and order management. Below is a simple implementation using Node.js and MongoDB.",
+      technologies: ["Node.js", "MongoDB", "Express.js"],
+      description: "A backend API for an e-commerce platform."
+    },
+    {
+      content: "A full-stack social media app allows users to create profiles, post updates, and connect with friends. It typically includes features like real-time chat and notifications. Below is a simple implementation using React and Firebase.",
+      technologies: ["React", "Firebase", "Node.js"],
+      description: "A full-stack social media app with real-time features."
     }
+  ];
+
+  const handleQuizClick = (quizId: number, locked: boolean) => {
+    setRegDialogOpen(true);
   };
 
+  // Helper for the Read More button
+  const ReadMoreButton = () => (
+    <div className="flex justify-center">
+      <button
+        className="flex items-center gap-1 text-primary font-semibold hover:underline text-sm mt-4"
+        onClick={() => setRegDialogOpen(true)}
+      >
+        Sign Up <span className="ml-1">&raquo;&raquo; Read More</span>
+      </button>
+    </div>
+  );
+
+  
+const handleClearCode = () => {
+    setCode('// Write your JavaScript code here\nconsole.log("Hello, World!");');
+    setOutput('');
+    setError('');
+  };
+ const handleRunCode = () => {
+    if (selectedLanguage !== 'javascript') {
+      setError('Only JavaScript is supported in this demo. Use a backend service like Judge0 for other languages.');
+      setOutput('');
+      return;
+    }
+    setOutput('');
+    setError('');
+    try {
+      // Redirect console.log to capture output
+      const logs: string[] = [];
+      const originalConsoleLog = console.log;
+      console.log = (...args: unknown[]) => {
+        logs.push(args.join(' '));
+      };
+ 
+      // Execute code in a safe context
+      // Note: eval is used for simplicity but should be replaced with a proper sandbox in production
+      // eslint-disable-next-line no-eval
+      eval(code);
+ 
+      console.log = originalConsoleLog;
+      setOutput(logs.join('\n') || 'No output');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
+    }
+  }
   return (
     <div className="min-h-screen bg-background">
      <div className="sticky top-0 z-50 bg-background">
@@ -129,9 +225,10 @@ const CourseDetail = () => {
                   <span className="text-lg font-semibold">{course.instructor}</span>
                 </div>
               </div>
-              <Button variant="course" size="lg">
+              <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
                 Enroll Now
               </Button>
+              <Contactus open={regOpen} setOpen={setRegOpen} />
             </div>
             <div className="lg:block">
               <img 
@@ -148,13 +245,15 @@ const CourseDetail = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-6">
+            <TabsList className="grid w-full grid-cols-8">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="projects">Projects</TabsTrigger>
               <TabsTrigger value="learning">What You'll Learn</TabsTrigger>
               <TabsTrigger value="certification">Certification</TabsTrigger>
               <TabsTrigger value="topics">Weekly Topics</TabsTrigger>
               <TabsTrigger value="quizzes">Quizzes</TabsTrigger>
+              <TabsTrigger value="online-compiler">Online Compiler</TabsTrigger>
+              <TabsTrigger value="attendance">Attendance</TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview" className="mt-8">
@@ -177,6 +276,9 @@ const CourseDetail = () => {
                     you need to succeed.
                   </p>
                 </CardContent>
+                <div className="flex justify-center">
+                  <ReadMoreButton />
+                </div>
               </Card>
             </TabsContent>
 
@@ -188,7 +290,16 @@ const CourseDetail = () => {
                 <CardContent>
                   <div className="grid gap-4">
                     {projects.map((project, index) => (
-                      <div key={index} className="flex items-center space-x-3 p-4 border rounded-lg">
+                      <div
+                        key={index}
+                        className="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:border-primary"
+                        onClick={() => {
+                          setSelectedProject(index);
+                          if (!isRegistered) {
+                            setRegDialogOpen(true);
+                          }
+                        }}
+                      >
                         <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
                           {index + 1}
                         </div>
@@ -196,8 +307,38 @@ const CourseDetail = () => {
                       </div>
                     ))}
                   </div>
+                  {/* Show project details if registered and a project is selected */}
+                  {isRegistered && selectedProject !== null && (
+                    <div className="mt-6 p-6 border rounded-lg bg-muted">
+                      <h4 className="text-lg font-semibold mb-2">Project Details</h4>
+                      <p className="mb-2">{projectDetails[selectedProject].description}</p>
+                      <div className="mb-2">
+                        <span className="font-semibold">Content: </span>{projectDetails[selectedProject].content}
+                      </div>
+                      <div className="mb-4">
+                        <span className="font-semibold">Technologies Used: </span>
+                        {projectDetails[selectedProject].technologies.join(", ")}
+                      </div>
+                      <div className="flex justify-center">
+                        <Button variant="course" onClick={() => setShowContactDialog(true)}>
+                          More About This
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
+               
               </Card>
+              <RegistrationDialog
+                open={regDialogOpen}
+                setOpen={(open) => {
+                  setRegDialogOpen(open);
+                  if (!open && selectedProject !== null) {
+                    setIsRegistered(true);
+                  }
+                }}
+              />
+              <Contactus open={showContactDialog} setOpen={setShowContactDialog} />
             </TabsContent>
 
             <TabsContent value="learning" className="mt-8">
@@ -217,7 +358,11 @@ const CourseDetail = () => {
                     ))}
                   </div>
                 </CardContent>
+                 <div className="flex justify-center">
+                <ReadMoreButton />
+              </div>
               </Card>
+             
             </TabsContent>
 
             <TabsContent value="certification" className="mt-8">
@@ -240,7 +385,11 @@ const CourseDetail = () => {
                     </ul>
                   </div>
                 </CardContent>
+                <div className="flex justify-center">
+                <ReadMoreButton />
+              </div>
               </Card>
+            
             </TabsContent>
 
             <TabsContent value="topics" className="mt-8">
@@ -258,18 +407,26 @@ const CourseDetail = () => {
                     ))}
                   </div>
                   {!showAllTopics && (
+                    <>
                     <Button 
                       variant="outline" 
                       className="mt-4 w-full"
-                      onClick={() => setShowAllTopics(true)}
+                      onClick={() => setRegDialogOpen(true)}
                     >
                       Show More Topics
                     </Button>
+                    <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />
+                    </>
+
                   )}
                   {showAllTopics && (
-                    <Button variant="course" className="mt-6 w-full" size="lg">
-                      Register for Full Course
-                    </Button>
+                    <>
+                      <Button variant="course" className="mt-6 w-full" size="lg" onClick={() => setRegOpen(true)}>
+                        Register for Full Course
+                      </Button>
+                      <Contactus open={regOpen} setOpen={setRegOpen} />
+                    </>
+
                   )}
                 </CardContent>
               </Card>
@@ -286,12 +443,13 @@ const CourseDetail = () => {
                       <div 
                         key={quiz.id} 
                         className={`p-4 border rounded-lg ${quiz.locked ? 'opacity-50' : 'hover:border-primary cursor-pointer'}`}
-                        onClick={() => handleQuizClick(quiz.id)}
+                        onClick={() => handleQuizClick(quiz.id, quiz.locked)}
                       >
                         <div className="flex items-center justify-between">
                           <span className="font-medium">{quiz.title}</span>
                           {quiz.locked ? (
                             <Badge variant="secondary">Locked</Badge>
+
                           ) : (
                             <Badge variant="outline">Available</Badge>
                           )}
@@ -306,12 +464,127 @@ const CourseDetail = () => {
                       <p className="text-muted-foreground mb-4">
                         This quiz is available to registered students only.
                       </p>
-                      <Button variant="course">Register Now</Button>
+                      <Button variant="course" size="lg" className="text-lg px-8 py-4 h-auto"
+							           onClick={() => setRegOpen(true)}>Enroll Now</Button> <Contactus open={regOpen} setOpen={setRegOpen} />
                     </div>
                   )}
                 </CardContent>
               </Card>
             </TabsContent>
+            <TabsContent value="online-compiler" className="mt-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Online Compiler</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    {/* Coding Questions */}
+                    <div className="lg:col-span-1">
+                      <h3 className="text-lg font-semibold mb-2">Coding Questions</h3>
+                      <Card className="p-4">
+                        <h4 className="font-medium text-primary mb-4">Question Number 1: {codingQuestions[0].title}</h4>
+                        <div className="space-y-4">
+                          <Card className="p-3">
+                            <h5 className="text-sm font-semibold text-primary">Question</h5>
+                            <p className="text-sm text-muted-foreground">{codingQuestions[0].question}</p>
+                          </Card>
+                          <Card className="p-3">
+                            <h5 className="text-sm font-semibold text-primary">Scenario</h5>
+                            <p className="text-sm text-muted-foreground">{codingQuestions[0].scenario}</p>
+                          </Card>
+                          <Card className="p-3">
+                            <h5 className="text-sm font-semibold text-primary">Expected Output</h5>
+                            <p className="text-sm text-muted-foreground whitespace-pre-line">{codingQuestions[0].expectedOutput}</p>
+                          </Card>
+                        </div>
+                      </Card>
+                              <Card className="p-4">
+                        <h4 className="font-medium text-primary mb-4">Question Number 2: {codingQuestions[0].title}</h4>
+                        <div className="space-y-4">
+                          <Card className="p-3">
+                            <h5 className="text-sm font-semibold text-primary">Question</h5>
+                            <p className="text-sm text-muted-foreground">{codingQuestions[0].question}</p>
+                          </Card>
+                          <Card className="p-3">
+                            <h5 className="text-sm font-semibold text-primary">Scenario</h5>
+                            <p className="text-sm text-muted-foreground">{codingQuestions[0].scenario}</p>
+                          </Card>
+                          <Card className="p-3">
+                            <h5 className="text-sm font-semibold text-primary">Expected Output</h5>
+                            <p className="text-sm text-muted-foreground whitespace-pre-line">{codingQuestions[0].expectedOutput}</p>
+                          </Card>
+                        </div>
+                      </Card>
+                    </div>
+ 
+                    {/* Code Editor and Output */}
+                    <div className="lg:col-span-3">
+                      <h3 className="text-lg font-semibold mb-2">Code Editor</h3>
+                      <div className="flex items-center space-x-4 mb-4">
+                        <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+                          <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Select Language" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="javascript">JavaScript</SelectItem>
+                            <SelectItem value="python">Python</SelectItem>
+                            <SelectItem value="java">Java</SelectItem>
+                            <SelectItem value="c">C</SelectItem>
+                            <SelectItem value="cpp">C++</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <Button
+                          variant="course"
+                          onClick={handleRunCode}
+                        >
+                          Run Code
+                        </Button>
+                        <Button
+                          variant="outline"
+                          onClick={handleClearCode}
+                        >
+                          Clear
+                        </Button>
+                      </div>
+                      
+                       <div className="code-editor-container" style={{ width: "800px", height: "500px" }}>
+      <AceEditor
+        mode="javascript"
+        theme="monokai"
+        value={code}
+        onChange={(newCode) => setCode(newCode)}
+        name="code-editor"
+        editorProps={{ $blockScrolling: true }}
+        setOptions={{
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          enableSnippets: true,
+          showLineNumbers: true,
+          tabSize: 2,
+          fontSize: 14,
+          showPrintMargin: false,
+        }}
+        style={{ width: "980px", height: "500px", borderRadius: "0.5rem" }}
+        className="border rounded-lg mb-4"
+      />
+    </div>
+                      <h3 className="text-lg font-semibold mb-2">Output</h3>
+                      <Card className="w-full min-h-[143px] p-4 bg-muted">
+                        {error ? (
+                          <pre className="text-red-600 whitespace-pre-wrap">{error}</pre>
+                        ) : (
+                          <pre className="text-foreground whitespace-pre-wrap">{output || 'Run the code to see output'}</pre>
+                        )}
+                      </Card>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="attendance" className="mt-8">
+              <Attendance />
+            </TabsContent>
+
           </Tabs>
         </div>
       </section>
@@ -354,42 +627,44 @@ const CourseDetail = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Upcoming Batches</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="text-center p-6">
-              <CardContent>
-                <h3 className="text-lg font-semibold mb-2">Weekday Batch</h3>
-                <p className="text-muted-foreground mb-4">Mon-Fri, 7PM-9PM</p>
-                <p className="font-semibold text-primary mb-4">Starts: Jan 15, 2024</p>
-                <Button variant="course" className="w-full">
-                  Enroll Now
-                </Button>
-              </CardContent>
-            </Card>
-            
-            <Card className="text-center p-6">
-              <CardContent>
-                <h3 className="text-lg font-semibold mb-2">Weekend Batch</h3>
-                <p className="text-muted-foreground mb-4">Sat-Sun, 10AM-2PM</p>
-                <p className="font-semibold text-primary mb-4">Starts: Jan 20, 2024</p>
-                <Button variant="course" className="w-full">
-                  Enroll Now
-                </Button>
-              </CardContent>
-            </Card>
-            
-            <Card className="text-center p-6">
-              <CardContent>
-                <h3 className="text-lg font-semibold mb-2">Intensive Batch</h3>
-                <p className="text-muted-foreground mb-4">Mon-Fri, 9AM-5PM</p>
-                <p className="font-semibold text-primary mb-4">Starts: Feb 1, 2024</p>
-                <Button variant="course" className="w-full">
-                  Enroll Now
-                </Button>
-              </CardContent>
-            </Card>
+            {[
+              {
+                title: "Weekday Batch",
+                desc: "Mon-Fri, 7PM-9PM",
+                start: "Starts: Jan 15, 2024",
+              },
+              {
+                title: "Weekend Batch",
+                desc: "Sat-Sun, 10AM-2PM",
+                start: "Starts: Jan 20, 2024",
+              },
+              {
+                title: "Intensive Batch",
+                desc: "Mon-Fri, 9AM-5PM",
+                start: "Starts: Feb 1, 2024",
+              },
+            ].map((batch, idx) => (
+              <Card className="text-center p-6" key={batch.title}>
+                 <CardContent>
+          <h3 className="text-lg font-semibold mb-2">{batch.title}</h3>
+          <p className="text-muted-foreground mb-4">{batch.desc}</p>
+          <p className="font-semibold text-primary mb-4">{batch.start}</p>
+          <Button
+            variant="course"
+            className="w-full"
+            onClick={() => setRegOpen(true)}
+          >
+            Enroll Now
+          </Button>
+        </CardContent>
+              </Card>
+            ))}
           </div>
+          <Contactus open={regOpen} setOpen={setRegOpen} />
         </div>
       </section>
 
+      <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />
       <Footer />
     </div>
   );

@@ -1,88 +1,186 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
+import { Dispatch, SetStateAction } from "react";
+import SignInDialog from "./SignInDialog";
+import { registerGuest } from "@/services/apiservices";
 
-const RegistrationDialog = () => {
-  const [open, setOpen] = useState(false);
+interface RegistrationDialogProps {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const technicalSkills = [
+  "Java", "Python", "React", "Node.js", "C++", "SQL", "HTML/CSS"
+];
+const nonTechnicalSkills = [
+  "Communication", "Management", "Marketing", "Sales", "Design"
+];
+
+const RegistrationDialog = ({ open, setOpen }: RegistrationDialogProps) => {
+  const [category, setCategory] = useState("");
+  const [skill, setSkill] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    country: "",
+    educational_status: "",
+    qualification: "",
+    passedout_year: "",
+    state: "",
+    city: "",
+    password: "",
+    confirmPassword: ""
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.id]: e.target.value });
+  };
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    if (!category || !skill) {
+      setError("Please select category and skill");
+      return;
+    }
+    setLoading(true);
+    try {
+      const payload = {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        country: form.country,
+        educational_status: form.educational_status,
+        qualification: form.qualification,
+        passedout_year: form.passedout_year,
+        interest: skill, // send only the selected skill
+        state: form.state,
+        city: form.city,
+        password: form.password
+      };
+      await registerGuest(payload);
+      setSuccess("Registration successful!");
+      setTimeout(() => setOpen(false), 1500);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Registration failed");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="auth" size="sm">
-          Sign Up
-        </Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <div className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" onSubmit={handleRegister}>
           <h2 className="text-2xl font-bold">Student Registration</h2>
           <p className="text-sm text-muted-foreground">Join LauraTek and start your learning journey today</p>
           <div className="grid gap-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="fullName">Full Name</Label>
-                <Input id="fullName" placeholder="Full Name" />
+                <Input id="name" placeholder="Full Name" value={form.name} onChange={handleChange} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" placeholder="Email Address" />
+                <Input id="email" type="email" placeholder="Email Address" value={form.email} onChange={handleChange} />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="country">Country</Label>
-                <Input id="country" placeholder="Select Country" />
+                <Input id="country" placeholder="Select Country" value={form.country} onChange={handleChange} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Enter phone number</Label>
-                <Input id="phone" type="tel" placeholder="+1 (US)" />
+                <Input id="phone" type="tel" placeholder="+1 (US)" value={form.phone} onChange={handleChange} />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="qualifications">Qualifications</Label>
-                <Input id="qualifications" placeholder="Select Education Status" />
+                <Input id="qualification" placeholder="Select Education Status" value={form.qualification} onChange={handleChange} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="year">Year (e.g., 2024)</Label>
-                <Input id="year" placeholder="Year (e.g., 2024)" disabled />
+                <Input id="passedout_year" placeholder="Year (e.g., 2024)" value={form.passedout_year} onChange={handleChange} />
               </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="codingInterests">Coding/Technical Interests (Select up to 3)</Label>
-              <Input id="codingInterests" placeholder="Select Coding Interests" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="nonCodingInterests">Non-Coding Interests (Select up to 3)</Label>
-              <Input id="nonCodingInterests" placeholder="Select Non-Coding Interests" />
+            {/* Category and Skill Selects */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="category">Category</Label>
+                <Select value={category} onValueChange={v => { setCategory(v); setSkill(""); }}>
+                  <SelectTrigger id="category">
+                    <SelectValue placeholder="Select Category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="technical">Technical</SelectItem>
+                    <SelectItem value="nonTechnical">Non-Technical</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="skill">{category === "technical" ? "Technical Skill" : category === "nonTechnical" ? "Non-Technical Skill" : "Skill"}</Label>
+                <Select value={skill} onValueChange={setSkill} disabled={!category}>
+                  <SelectTrigger id="skill">
+                    <SelectValue placeholder={category === "technical" ? "Select Technical Skill" : category === "nonTechnical" ? "Select Non-Technical Skill" : "Select Skill"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {category === "technical" && technicalSkills.map((s) => (
+                      <SelectItem key={s} value={s}>{s}</SelectItem>
+                    ))}
+                    {category === "nonTechnical" && nonTechnicalSkills.map((s) => (
+                      <SelectItem key={s} value={s}>{s}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="state">State</Label>
-                <Input id="state" placeholder="State" />
+                <Input id="state" placeholder="State" value={form.state} onChange={handleChange} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="city">City</Label>
-                <Input id="city" placeholder="City" />
+                <Input id="city" placeholder="City" value={form.city} onChange={handleChange} />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" placeholder="Password" />
+                <Input id="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <Input id="confirmPassword" type="password" placeholder="Confirm Password" />
+                <Input id="confirmPassword" type="password" placeholder="Confirm Password" value={form.confirmPassword} onChange={handleChange} />
               </div>
             </div>
-            <Button className="w-full">Register Now</Button>
+            {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+            {success && <div className="text-green-600 text-sm text-center">{success}</div>}
+            <Button className="w-full" type="submit" disabled={loading}>{loading ? "Registering..." : "Register Now"}</Button>
           </div>
           <div className="text-sm text-muted-foreground text-right">
-            Already Registered? <a href="#" className="text-primary underline">Sign in</a>
+            Already Registered? <a href="#" className="text-primary underline"><SignInDialog/></a> 
           </div>
-        </div>
+        </form>
       </DialogContent>
     </Dialog>
   );
