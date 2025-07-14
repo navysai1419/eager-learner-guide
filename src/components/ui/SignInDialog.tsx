@@ -23,7 +23,7 @@ const SignInDialog = () => {
       if (res && res.access_token) {
         localStorage.setItem('access_token', res.access_token);
         setOpen(false);
-        navigate("/dashboard");
+        navigate("/");
       } else {
         setError(res?.message || "Invalid email or password");
       }

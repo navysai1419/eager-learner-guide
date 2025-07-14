@@ -43,7 +43,7 @@ const App = () => (
           <Route path="/dashboard/attendance" element={<Attendance />} />
           <Route path="/dashboard/compiler" element={<Compiler />} />
           <Route path="/dashboard/assessments" element={<Assessments />} />
-          <Route path="/dashboard/success-stories" element={<SuccessStories />} />
+          <Route path="/success-stories" element={<SuccessStories />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
