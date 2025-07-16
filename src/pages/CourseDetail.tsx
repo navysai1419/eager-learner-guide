@@ -1,17 +1,22 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RegistrationDialog from "@/components/ui/RegistrationDialog";
-import { Getquizes } from "@/services/apiservices";
+import { Getquizes, GetQuizResult } from "@/services/apiservices";
 import { FaTrophy } from "react-icons/fa";
-import webDevCourse from "@/assets/web-development-course.jpg";
-import dataScienceCourse from "@/assets/data-science-course.jpg";
-import digitalMarketingCourse from "@/assets/digital-marketing-course.jpg";
+import webDevCourse from "@/assets/UIUX Developer.jpg";
+import python from "@/assets/python.jpg";
+import node from "@/assets/Node.jpg";
+import react from "@/assets/react.jpg";
+import java from "@/assets/Java .jpg";
+import sql from "@/assets/SQL.jpg";
+import cloud from "@/assets/cloud.jpg"
 import instructorPortrait from "@/assets/instructor-portrait.jpg";
 import Contactus from "@/components/ui/contactus";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -19,43 +24,43 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-monokai";
 import Attendance from "@/components/ui/attendance";
- 
+
 const courseData = {
   "web-development": {
-    title: "U/UX Design & Web Development",
+    title: "UI/UX Developer",
     image: webDevCourse,
-    description: "Learn Node.js, and databases. Build real-world applications from scratch.",
+    description: "Designed to build industry-ready professionals skilled in both design principles and front-end development.",
     duration: "12 weeks",
     level: "Beginner",
-    price: "$499",
+    // price: "$499",
     instructor: "Sarah Johnson",
     weeklyTopics: [
-      "HTML & CSS Fundamentals",
-      "JavaScript Basics",
-      "React Components",
-      "State Management",
-      "Backend with Node.js",
-      "Database Integration",
-      "Authentication & Security",
-      "API Development",
-      "Testing & Deployment",
-      "Advanced React Patterns",
-      "Performance Optimization",
+      "Figma",
+      "Canva",
+      "Design systems & UI kits",
+      "HTML5",
+      "CSS3",
+      "Bootstrap",
+      "JavaScript (ES6+)",
+      "React",
       "Final Project"
     ],
     projects: [
+      "Wireframe",
+      "UI Mockup",
       "Personal Portfolio Website",
       "Todo Application with React",
-      "E-commerce Backend API",
-      "Full-Stack Social Media App"
+      "E-commerce"
     ],
     learningOutcomes: [
-      "Build responsive websites with HTML, CSS, and JavaScript",
-      "Create dynamic web applications using React",
-      "Develop RESTful APIs with Node.js and Express",
-      "Work with databases and implement authentication",
-      "Deploy applications to cloud platforms",
-      "Follow industry best practices and coding standards"
+      "Figma – Create wireframes, prototypes, and high-fidelity designs; collaborate effectively in design teams.",
+      "Canva – Design visual assets, icons, and simple UI mockups with ease.",
+      "Design systems, UI kits, and reusable components for scalable design.",
+      "HTML5 – Structure clean, semantic web pages with accessibility in mind.",
+      "CSS3 – Design beautiful, responsive layouts using Flexbox and Grid.",
+      "Bootstrap – Use pre-built components to speed up mobile-first UI development.",
+      "JavaScript (ES6+) – Add interactivity with dynamic scripting, DOM manipulation, and modern JS features.",
+      "React – Build interactive UIs with components, hooks, and state management."
     ],
     projectDetails: [
       {
@@ -80,9 +85,326 @@ const courseData = {
       }
     ]
   },
-  " Java fullStack Developer": {
+  "ReactJS": {
+    title: "ReactJS / React Native Developer",
+    image: react,
+    description: "Master the art of building interactive UIs, managing dynamic data flows, and deploying cross-platform apps using ReactJS for web and React Native for mobile",
+    duration: "16 weeks",
+    level: "Intermediate",
+    // price: "$699",
+    instructor: "Dr. Michael Chen",
+    weeklyTopics: [
+      "JSX (JavaScript XML)",
+      "Components",
+      "Hooks",
+      "State Management",
+      "React Native"
+    ],
+    projects: [
+      "UI code using JSX",
+      "Local state with useState",
+      "Modern web and mobile app development",
+      "External APIs"
+    ],
+    learningOutcomes: [
+      "Writing clean UI code using JSX",
+      "Building reusable functional components",
+      "Managing component lifecycle and side effects",
+      "Routing with React Router",
+      "Fetching data with APIs and handling async operations",
+      "Using core components like View, Text, ScrollView, TouchableOpacity",
+      "Deploying apps to Android and iOS simulators",
+      "Optimizing performance and using native modules"
+    ],
+    projectDetails: [
+      {
+        content: "A data visualization dashboard displays key metrics and trends using interactive charts. It helps stakeholders make data-driven decisions. Below is a simple implementation using Python and Dash.",
+        technologies: ["Python", "Dash", "Pandas"],
+        description: "An interactive dashboard for visualizing data trends."
+      },
+      {
+        content: "A predictive model for sales forecasts future revenue based on historical data. It uses regression techniques to identify patterns. Below is a simple implementation using Python and Scikit-learn.",
+        technologies: ["Python", "Scikit-learn", "Pandas"],
+        description: "A model to predict sales trends."
+      },
+      {
+        content: "Customer segmentation analysis groups customers based on behavior and demographics. It uses clustering algorithms to identify patterns. Below is a simple implementation using Python and K-means.",
+        technologies: ["Python", "Scikit-learn", "Matplotlib"],
+        description: "A clustering model for customer segmentation."
+      },
+      {
+        content: "A neural network classifier predicts categories based on input features. It uses deep learning frameworks like TensorFlow. Below is a simple implementation for image classification.",
+        technologies: ["Python", "TensorFlow", "Keras"],
+        description: "A neural network for classification tasks."
+      }
+    ]
+  },
+  "Python": {
+    title: "Python Developer",
+    image: python,
+    description: "From writing clean Python scripts to creating full-fledged backend systems, you’ll master backend logic, data handling, and seamless API integration",
+    duration: "8 weeks",
+    level: "Beginner",
+    // price: "$399",
+    instructor: "Emma Rodriguez",
+    weeklyTopics: [
+      "Python Basics",
+      "Loops, Functions, and OOPs",
+      "Exception handling",
+      "MySQL",
+      "API Integration",
+      "FastAPI",
+      "Async I/O"
+    ],
+    projects: [
+      "Calculator",
+      "Web Scraper",
+      "Weather App",
+      "URL Shortener"
+    ],
+    learningOutcomes: [
+      "Build a strong foundation in syntax, data types, control flow, OOPs, file handling, error management, and advanced Python features like decorators and generators.",
+      "Design, query, and manage relational databases, normalize data, write joins, and implement CRUD operations efficiently.",
+      "Understand REST principles, work with external APIs, and design your own APIs for web and mobile applications",
+      "Building lightning-fast APIs using Pydantic and asynchronous programming. Learning routing, dependency injection, request validation, middleware, and JWT-based authentication",
+      "JSON data formats and use built-in API documentation via Swagger for better testing and collaboration.",
+      "Handle concurrent tasks and high-performance API requests using asynchronous programming with Python."
+    ],
+    projectDetails: [
+      {
+        content: "An SEO audit report identifies opportunities to improve website ranking on search engines. It includes keyword analysis and technical SEO recommendations. Below is a sample structure using tools like SEMrush.",
+        technologies: ["SEMrush", "Google Analytics", "Google Search Console"],
+        description: "A report to improve website SEO performance."
+      },
+      {
+        content: "A social media campaign promotes a brand or product across platforms like Instagram and Twitter. It includes content creation and scheduling. Below is a sample campaign plan.",
+        technologies: ["Hootsuite", "Canva", "Instagram"],
+        description: "A campaign to boost social media engagement."
+      },
+      {
+        content: "An email marketing funnel nurtures leads through automated email sequences. It includes welcome emails and conversion-focused content. Below is a sample funnel using Mailchimp.",
+        technologies: ["Mailchimp", "Google Analytics"],
+        description: "An automated email sequence for lead nurturing."
+      },
+      {
+        content: "A Google Ads campaign drives traffic through targeted ads. It includes keyword selection and ad copy creation. Below is a sample campaign setup.",
+        technologies: ["Google Ads", "Google Analytics"],
+        description: "A PPC campaign to drive website traffic."
+      }
+    ]
+  },
+  "Java Developer": {
+    title: "Java Developer",
+    image: java,
+    description: "From writing clean Python scripts to creating full-fledged backend systems, you’ll master backend logic, data handling, and seamless API integration",
+    duration: "8 weeks",
+    level: "Beginner",
+    // price: "$399",
+    instructor: "Emma Rodriguez",
+    weeklyTopics: [
+      "Java Basics",
+      "object-oriented concepts",
+      "Spring Boot",
+      "REST API Development",
+      "Microservices Architecture",
+      "Postman Testing"
+    ],
+    projects: [
+      "Microservices-Based E-Commerce Platform",
+      "Bug Tracking System",
+      "Real-Time Chat & Notification App (WebSocket)",
+      "Inventory Management System",
+      "IoT Device Monitoring App"
+    ],
+    learningOutcomes: [
+      "object-oriented concepts, data structures, exception handling, collections, multithreading, and file I/O.",
+      "production-grade, standalone applications using Spring Boot. Understand dependency injection, annotations, REST controllers, and starter modules.",
+      "Endpoints, handle JSON requests/responses, and implement CRUD operations with proper status codes and validations.",
+      "Service registration, discovery, inter-service communication. Learning routing, dependency injection, request validation, middleware, and JWT-based authentication",
+      "Testing your APIs with structured HTTP requests, validate responses, and simulate different client environments for real-time backend testing."
+    ],
+    projectDetails: [
+      {
+        content: "An SEO audit report identifies opportunities to improve website ranking on search engines. It includes keyword analysis and technical SEO recommendations. Below is a sample structure using tools like SEMrush.",
+        technologies: ["SEMrush", "Google Analytics", "Google Search Console"],
+        description: "A report to improve website SEO performance."
+      },
+      {
+        content: "A social media campaign promotes a brand or product across platforms like Instagram and Twitter. It includes content creation and scheduling. Below is a sample campaign plan.",
+        technologies: ["Hootsuite", "Canva", "Instagram"],
+        description: "A campaign to boost social media engagement."
+      },
+      {
+        content: "An email marketing funnel nurtures leads through automated email sequences. It includes welcome emails and conversion-focused content. Below is a sample funnel using Mailchimp.",
+        technologies: ["Mailchimp", "Google Analytics"],
+        description: "An automated email sequence for lead nurturing."
+      },
+      {
+        content: "A Google Ads campaign drives traffic through targeted ads. It includes keyword selection and ad copy creation. Below is a sample campaign setup.",
+        technologies: ["Google Ads", "Google Analytics"],
+        description: "A PPC campaign to drive website traffic."
+      }
+    ]
+  },
+  "Node.js Developer": {
+    title: "Node.js Developer",
+    image: node,
+    description: "Master the JavaScript-powered backend stack and build real-time, event-driven applications",
+    duration: "8 weeks",
+    level: "Beginner",
+    // price: "$399",
+    instructor: "Emma Rodriguez",
+    weeklyTopics: [
+      "Node.js Fundamentals",
+      "Express.js",
+      "REST API Development",
+      "Asynchronous coding: callbacks, promises, async/await",
+      "CRUD operations"
+    ],
+    projects: [
+      "Weather API Service",
+      "Event Booking System",
+      "Inventory Management System",
+      "Real-Time Chat Application"
+    ],
+    learningOutcomes: [
+      "asynchronous programming, the event loop, callbacks, promises, and modules to build robust and efficient backend applications",
+      "the most popular Node.js framework to create RESTful APIs, manage routes, middleware, and handle server-side logic with ease.",
+      "Understand how to build secure and scalable APIs, implement CRUD operations, handle HTTP methods, status codes, and create JSON-based data flows.",
+      "Server management, and seamless request/response handling using the Node.js ecosystem."
+    ],
+    projectDetails: [
+      {
+        content: "An SEO audit report identifies opportunities to improve website ranking on search engines. It includes keyword analysis and technical SEO recommendations. Below is a sample structure using tools like SEMrush.",
+        technologies: ["SEMrush", "Google Analytics", "Google Search Console"],
+        description: "A report to improve website SEO performance."
+      },
+      {
+        content: "A social media campaign promotes a brand or product across platforms like Instagram and Twitter. It includes content creation and scheduling. Below is a sample campaign plan.",
+        technologies: ["Hootsuite", "Canva", "Instagram"],
+        description: "A campaign to boost social media engagement."
+      },
+      {
+        content: "An email marketing funnel nurtures leads through automated email sequences. It includes welcome emails and conversion-focused content. Below is a sample funnel using Mailchimp.",
+        technologies: ["Mailchimp", "Google Analytics"],
+        description: "An automated email sequence for lead nurturing."
+      },
+      {
+        content: "A Google Ads campaign drives traffic through targeted ads. It includes keyword selection and ad copy creation. Below is a sample campaign setup.",
+        technologies: ["Google Ads", "Google Analytics"],
+        description: "A PPC campaign to drive website traffic."
+      }
+    ]
+  },
+  "SQL & Database Management": {
+    title: "SQL & Database Management",
+    image: sql,
+    description: "most widely used open-source relational database systems. Develop a strong foundation in relational database concepts and SQL query writing",
+    duration: "8 weeks",
+    level: "Beginner",
+    // price: "$399",
+    instructor: "Emma Rodriguez",
+    weeklyTopics: [
+      "SELECT, INSERT, UPDATE, DELETE",
+      "aggregate functions & joins",
+      "Subqueries",
+      "Optimization Techniques"
+    ],
+    projects: [
+      "CRUD Operations (Create, Read, Update, Delete)",
+      "Employee Management System",
+      "Event Registration Database",
+      "Schema Design for E-Commerce"
+    ],
+    learningOutcomes: [
+      "Database structures: tables, fields, keys & Data types and constraints",
+      "Writing basic SELECT, INSERT, UPDATE, DELETE statements",
+      "Filtering, sorting, and using conditional logic (WHERE, AND, OR, NOT)",
+      "aggregate functions, grouping and filtering with GROUP BY and HAVING",
+      "Proficiency in writing clear, efficient, and complex SQL queries for real-world business applications."
+    ],
+    projectDetails: [
+      {
+        content: "An SEO audit report identifies opportunities to improve website ranking on search engines. It includes keyword analysis and technical SEO recommendations. Below is a sample structure using tools like SEMrush.",
+        technologies: ["SEMrush", "Google Analytics", "Google Search Console"],
+        description: "A report to improve website SEO performance."
+      },
+      {
+        content: "A social media campaign promotes a brand or product across platforms like Instagram and Twitter. It includes content creation and scheduling. Below is a sample campaign plan.",
+        technologies: ["Hootsuite", "Canva", "Instagram"],
+        description: "A campaign to boost social media engagement."
+      },
+      {
+        content: "An email marketing funnel nurtures leads through automated email sequences. It includes welcome emails and conversion-focused content. Below is a sample funnel using Mailchimp.",
+        technologies: ["Mailchimp", "Google Analytics"],
+        description: "An automated email sequence for lead nurturing."
+      },
+      {
+        content: "A Google Ads campaign drives traffic through targeted ads. It includes keyword selection and ad copy creation. Below is a sample campaign setup.",
+        technologies: ["Google Ads", "Google Analytics"],
+        description: "A PPC campaign to drive website traffic."
+      }
+    ]
+  },
+  "Cloud + DevOps Program": {
+    title: "Cloud + DevOps Program",
+    image: cloud,
+    description: "deploying, managing, and automating applications across leading cloud platforms — AWS and Azure — using powerful DevOps tools",
+    duration: "8 weeks",
+    level: "Beginner",
+    // price: "$399",
+    instructor: "Emma Rodriguez",
+    weeklyTopics: [
+      "EC2",
+      "S3, IAM",
+      "RDS, AWS CLI",
+      "CloudWatch & CloudTrail",
+      "Elastic Beanstalk",
+      "AWS Lambda & CI/CD Pipelines",
+      "Jenkins, Kubernetes, Docker",
+      "Terraform, Maven"
+    ],
+    projects: [
+      "CI/CD Pipeline with AWS CodePipeline",
+      "Serverless Application with AWS Lambda and S3",
+      "Kubernetes-Based Scalable Application Deployment",
+      "Infrastructure as Code with Terraform",
+      "Client-to-Site VPN Setup on AWS"
+    ],
+    learningOutcomes: [
+      "Acquire end-to-end skills in cloud operations, CI/CD automation, containerization, and infrastructure management",
+      "Launch virtual servers (EC2), secure storage (S3), and scalable databases (RDS)",
+      "Monitor, troubleshoot, and automate cloud environments using CLI, CloudWatch, and Lambda",
+      "Set up CI/CD pipelines with AWS Developer Tools",
+      "Build and automate pipelines with Jenkins and Write Terraform scripts for infrastructure as code",
+      "Create containerized applications using Docker and orchestrate them using Kubernetes."
+    ],
+    projectDetails: [
+      {
+        content: "An SEO audit report identifies opportunities to improve website ranking on search engines. It includes keyword analysis and technical SEO recommendations. Below is a sample structure using tools like SEMrush.",
+        technologies: ["SEMrush", "Google Analytics", "Google Search Console"],
+        description: "A report to improve website SEO performance."
+      },
+      {
+        content: "A social media campaign promotes a brand or product across platforms like Instagram and Twitter. It includes content creation and scheduling. Below is a sample campaign plan.",
+        technologies: ["Hootsuite", "Canva", "Instagram"],
+        description: "A campaign to boost social media engagement."
+      },
+      {
+        content: "An email marketing funnel nurtures leads through automated email sequences. It includes welcome emails and conversion-focused content. Below is a sample funnel using Mailchimp.",
+        technologies: ["Mailchimp", "Google Analytics"],
+        description: "An automated email sequence for lead nurturing."
+      },
+      {
+        content: "A Google Ads campaign drives traffic through targeted ads. It includes keyword selection and ad copy creation. Below is a sample campaign setup.",
+        technologies: ["Google Ads", "Google Analytics"],
+        description: "A PPC campaign to drive website traffic."
+      }
+    ]
+  },
+  "Java fullStack Developer": {
     title: "Java fullStack Developer",
-    image: digitalMarketingCourse,
+    image: java,
     description: " designed to help you build dynamic web applications from the ground up — covering frontend design, backend logic, and database integration using industry-standard Java technologies and deploy modern web applications end-to-end ",
     duration: "8 weeks",
     level: "Beginner",
@@ -133,123 +455,9 @@ const courseData = {
         description: "A PPC campaign to drive website traffic."
       }
     ]
-  },
-  "data-science": {
-    title: "Data Science & Analytics",
-    image: dataScienceCourse,
-    description: "Learn Python, machine learning, and data visualization to become a data scientist.",
-    duration: "16 weeks",
-    level: "Intermediate",
-    price: "$699",
-    instructor: "Dr. Michael Chen",
-    weeklyTopics: [
-      "Python Programming Basics",
-      "Data Manipulation with Pandas",
-      "Data Visualization with Matplotlib",
-      "Statistics for Data Science",
-      "Machine Learning Fundamentals",
-      "Supervised Learning",
-      "Unsupervised Learning",
-      "Deep Learning Basics",
-      "Big Data with Spark",
-      "Model Evaluation",
-      "Data Ethics and Privacy",
-      "Capstone Project"
-    ],
-    projects: [
-      "Data Visualization Dashboard",
-      "Predictive Model for Sales",
-      "Customer Segmentation Analysis",
-      "Neural Network Classifier"
-    ],
-    learningOutcomes: [
-      "Master Python for data analysis",
-      "Create insightful data visualizations",
-      "Build and evaluate machine learning models",
-      "Work with large datasets using Spark",
-      "Understand data ethics and privacy concerns",
-      "Develop a professional data science portfolio"
-    ],
-    projectDetails: [
-      {
-        content: "A data visualization dashboard displays key metrics and trends using interactive charts. It helps stakeholders make data-driven decisions. Below is a simple implementation using Python and Dash.",
-        technologies: ["Python", "Dash", "Pandas"],
-        description: "An interactive dashboard for visualizing data trends."
-      },
-      {
-        content: "A predictive model for sales forecasts future revenue based on historical data. It uses regression techniques to identify patterns. Below is a simple implementation using Python and Scikit-learn.",
-        technologies: ["Python", "Scikit-learn", "Pandas"],
-        description: "A model to predict sales trends."
-      },
-      {
-        content: "Customer segmentation analysis groups customers based on behavior and demographics. It uses clustering algorithms to identify patterns. Below is a simple implementation using Python and K-means.",
-        technologies: ["Python", "Scikit-learn", "Matplotlib"],
-        description: "A clustering model for customer segmentation."
-      },
-      {
-        content: "A neural network classifier predicts categories based on input features. It uses deep learning frameworks like TensorFlow. Below is a simple implementation for image classification.",
-        technologies: ["Python", "TensorFlow", "Keras"],
-        description: "A neural network for classification tasks."
-      }
-    ]
-  },
-  "digital-marketing": {
-    title: "Digital Marketing Mastery",
-    image: digitalMarketingCourse,
-    description: "Master SEO, social media, content marketing, and analytics for business growth.",
-    duration: "8 weeks",
-    level: "Beginner",
-    price: "$399",
-    instructor: "Emma Rodriguez",
-    weeklyTopics: [
-      "Introduction to Digital Marketing",
-      "SEO Fundamentals",
-      "Content Marketing Strategies",
-      "Social Media Marketing",
-      "Email Marketing",
-      "Pay-Per-Click Advertising",
-      "Web Analytics",
-      "Campaign Optimization"
-    ],
-    projects: [
-      "SEO Audit Report",
-      "Social Media Campaign",
-      "Email Marketing Funnel",
-      "Google Ads Campaign"
-    ],
-    learningOutcomes: [
-      "Optimize websites for search engines",
-      "Create engaging social media content",
-      "Design effective email marketing campaigns",
-      "Analyze and optimize digital campaigns",
-      "Use Google Analytics for insights",
-      "Develop a comprehensive marketing strategy"
-    ],
-    projectDetails: [
-      {
-        content: "An SEO audit report identifies opportunities to improve website ranking on search engines. It includes keyword analysis and technical SEO recommendations. Below is a sample structure using tools like SEMrush.",
-        technologies: ["SEMrush", "Google Analytics", "Google Search Console"],
-        description: "A report to improve website SEO performance."
-      },
-      {
-        content: "A social media campaign promotes a brand or product across platforms like Instagram and Twitter. It includes content creation and scheduling. Below is a sample campaign plan.",
-        technologies: ["Hootsuite", "Canva", "Instagram"],
-        description: "A campaign to boost social media engagement."
-      },
-      {
-        content: "An email marketing funnel nurtures leads through automated email sequences. It includes welcome emails and conversion-focused content. Below is a sample funnel using Mailchimp.",
-        technologies: ["Mailchimp", "Google Analytics"],
-        description: "An automated email sequence for lead nurturing."
-      },
-      {
-        content: "A Google Ads campaign drives traffic through targeted ads. It includes keyword selection and ad copy creation. Below is a sample campaign setup.",
-        technologies: ["Google Ads", "Google Analytics"],
-        description: "A PPC campaign to drive website traffic."
-      }
-    ]
   }
 };
- 
+
 const CourseDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [showAllTopics, setShowAllTopics] = useState(false);
@@ -265,6 +473,7 @@ const CourseDetail = () => {
   const [isRegistered, setIsRegistered] = useState(false);
   const [showContactDialog, setShowContactDialog] = useState(false);
   type QuizQuestion = {
+    id: number;
     question_text: string;
     option_a: string;
     option_b: string;
@@ -272,26 +481,49 @@ const CourseDetail = () => {
     option_d: string;
     correct_option: string;
   };
+  type QuizResult = {
+    id: number;
+    guest_id: number;
+    title: string;
+    score: number;
+    total_questions: number;
+    time_taken: number;
+    submitted_at: string;
+  };
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
+  const [quizResults, setQuizResults] = useState<QuizResult[]>([]);
   const [showQuizUI, setShowQuizUI] = useState(false);
   const [currentQuizTitle, setCurrentQuizTitle] = useState("");
-  const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [quizFeedback, setQuizFeedback] = useState("");
-  const [score, setScore] = useState(0);
+  const [answers, setAnswers] = useState<{ question_id: number; selected_option: string }[]>([]);
   const [quizCompleted, setQuizCompleted] = useState(false);
- 
+  const [score, setScore] = useState(0);
+  const [quizStartTime, setQuizStartTime] = useState<number | null>(null);
+   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+
   const course = courseData[id as keyof typeof courseData];
- 
+
   useEffect(() => {
     const token = localStorage.getItem('access_token');
     setIsRegistered(!!token);
+    if (token) {
+      fetchQuizResults();
+    }
   }, []);
- 
+
+  const fetchQuizResults = async () => {
+    try {
+      const results = await GetQuizResult();
+      setQuizResults(results);
+    } catch (err) {
+      console.error('Failed to fetch quiz results:', err);
+      setQuizResults([]);
+    }
+  };
+
   if (!course) {
     return <div>Course not found</div>;
   }
- 
+
   const codingQuestions = [
     {
       id: 1,
@@ -301,14 +533,14 @@ const CourseDetail = () => {
       expectedOutput: "Input: 4 -> Output: Even\nInput: 7 -> Output: Odd"
     }
   ];
- 
+
   const quizzes = [
-    { id: 1, title: "testing", completed: false },
-    { id: 2, title: id === "web-development" ? "React Basics" : id === "data-science" ? "Python Basics" : "SEO Basics", completed: false },
+    { id: 1, title: "java", completed: false },
+    { id: 2, title: id === "web-development" ? "React Basics" : id === "data-science" ? "Python Basics" : "Java Basics", completed: false },
     { id: 3, title: id === "web-development" ? "Backend Development" : id === "data-science" ? "Machine Learning" : "Social Media", completed: false },
     { id: 4, title: "Advanced Topics", completed: false, locked: true }
   ];
- 
+
   const handleQuizClick = async (quizId: number, locked: boolean) => {
     const quiz = quizzes.find((q) => q.id === quizId);
     const token = localStorage.getItem('access_token');
@@ -318,12 +550,13 @@ const CourseDetail = () => {
       return;
     }
     setIsRegistered(true);
-    if (quiz) {
+    if (quiz && !locked) {
       setCurrentQuizTitle(quiz.title);
       setShowQuizUI(true);
-      setQuizFeedback("");
-      setSelectedOption(null);
-      setCurrentQuestionIdx(0);
+      setAnswers([]);
+      setScore(0);
+      setQuizCompleted(false);
+      setQuizStartTime(Date.now());
       try {
         const res = await Getquizes(quiz.title);
         if (token) {
@@ -334,40 +567,69 @@ const CourseDetail = () => {
       } catch (err) {
         setQuizQuestions([]);
       }
-    }
-  };
- 
-  const handleQuizOptionSelect = (option: string) => {
-    setSelectedOption(option);
-    setQuizFeedback("");
-  };
- 
-  const handleQuizSubmit = () => {
-    if (!quizQuestions.length) return;
-    const correct = quizQuestions[currentQuestionIdx].correct_option;
-    if (selectedOption && selectedOption.toLowerCase() === correct.toLowerCase()) {
-      setQuizFeedback("Correct!");
-      setScore((prev) => prev + 1);
     } else {
-      setQuizFeedback(`Incorrect. Correct answer: Option ${correct.toUpperCase()}`);
+      setShowRegisterPrompt(true);
     }
-    if (currentQuestionIdx === quizQuestions.length - 1) {
+  };
+const handleNextQuestion = () => {
+    if (currentQuestionIndex < quizQuestions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    }
+  };
+
+  const handlePrevQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
+  };
+
+  const handleQuizOptionSelect = (questionId: number, option: string) => {
+    setAnswers((prev) => {
+      const existingAnswer = prev.find((ans) => ans.question_id === questionId);
+      if (existingAnswer) {
+        return prev.map((ans) =>
+          ans.question_id === questionId ? { ...ans, selected_option: option } : ans
+        );
+      }
+      return [...prev, { question_id: questionId, selected_option: option }];
+    });
+  };
+
+  const handleQuizSubmit = async () => {
+    if (!quizQuestions.length || !quizStartTime) return;
+
+    const timeTaken = Math.round((Date.now() - quizStartTime) / 1000);
+    const payload = {
+      title: currentQuizTitle,
+      answers: answers,
+      time_taken: timeTaken
+    };
+
+    try {
+      const response = await fetch('http://192.168.0.109:8000/guest/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        setScore(result.score || 0);
+        setQuizCompleted(true);
+        await fetchQuizResults(); // Refresh quiz results after submission
+      } else {
+        throw new Error('Failed to submit quiz');
+      }
+    } catch (err) {
+      console.error('Error submitting quiz:', err);
+      setScore(0);
       setQuizCompleted(true);
     }
   };
- 
-  const handleQuizNext = () => {
-    setCurrentQuestionIdx((idx) => Math.min(idx + 1, quizQuestions.length - 1));
-    setSelectedOption(null);
-    setQuizFeedback("");
-  };
- 
-  const handleQuizPrev = () => {
-    setCurrentQuestionIdx((idx) => Math.max(idx - 1, 0));
-    setSelectedOption(null);
-    setQuizFeedback("");
-  };
- 
+
   const getCupInfo = (score: number) => {
     if (score > 30) return { color: '#FFD700', label: 'Gold Cup' };
     if (score > 20) return { color: '#C0C0C0', label: 'Silver Cup' };
@@ -375,13 +637,13 @@ const CourseDetail = () => {
     if (score > 5) return { color: '#cd7f32', label: 'Brass Cup' };
     return null;
   };
- 
+
   const handleClearCode = () => {
     setCode('// Write your JavaScript code here\nconsole.log("Hello, World!");');
     setOutput('');
     setError('');
   };
- 
+
   const handleRunCode = () => {
     if (selectedLanguage !== 'javascript') {
       setError('Only JavaScript is supported in this demo. Use a backend service like Judge0 for other languages.');
@@ -407,13 +669,13 @@ const CourseDetail = () => {
       }
     }
   };
- 
+
   return (
     <div className="min-h-screen bg-background">
       <div className="sticky top-0 z-50 bg-background">
         <Header />
       </div>
-     
+
       <section className="relative py-16 bg-gradient-to-r from-course-hero to-primary">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -426,16 +688,16 @@ const CourseDetail = () => {
                   <span className="block text-sm text-white/70">Duration</span>
                   <span className="text-lg font-semibold">{course.duration}</span>
                 </div>
-                <div>
+                {/* <div>
                   <span className="block text-sm text-white/70">Price</span>
                   <span className="text-lg font-semibold">{course.price}</span>
-                </div>
+                </div> */}
                 <div>
                   <span className="block text-sm text-white/70">Instructor</span>
                   <span className="text-lg font-semibold">{course.instructor}</span>
                 </div>
               </div>
-              <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
+              <Button variant="course" size="lg" onClick={() => setRegOpen(true)}>
                 Enroll Now
               </Button>
               <Contactus open={regOpen} setOpen={setRegOpen} />
@@ -450,21 +712,22 @@ const CourseDetail = () => {
           </div>
         </div>
       </section>
- 
+
       <section className="py-16">
         <div className="container mx-auto px-4">
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-8">
+            <TabsList className="grid w-full grid-cols-9">
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="projects">Projects</TabsTrigger>
               <TabsTrigger value="learning">What You'll Learn</TabsTrigger>
               <TabsTrigger value="certification">Certification</TabsTrigger>
               <TabsTrigger value="topics">Weekly Topics</TabsTrigger>
               <TabsTrigger value="quizzes">Quizzes</TabsTrigger>
+              <TabsTrigger value="quiz-results">Quiz Results</TabsTrigger>
               <TabsTrigger value="online-compiler">Online Compiler</TabsTrigger>
               <TabsTrigger value="attendance">Attendance</TabsTrigger>
             </TabsList>
- 
+
             <TabsContent value="overview" className="mt-8">
               <Card>
                 <CardHeader>
@@ -509,7 +772,7 @@ const CourseDetail = () => {
                 )}
               </Card>
             </TabsContent>
- 
+
             <TabsContent value="projects" className="mt-8">
               <Card>
                 <CardHeader>
@@ -566,7 +829,7 @@ const CourseDetail = () => {
               />
               <Contactus open={showContactDialog} setOpen={setShowContactDialog} />
             </TabsContent>
- 
+
             <TabsContent value="learning" className="mt-8">
               <Card>
                 <CardHeader>
@@ -616,7 +879,7 @@ const CourseDetail = () => {
                 )}
               </Card>
             </TabsContent>
- 
+
             <TabsContent value="certification" className="mt-8">
               <Card>
                 <CardHeader>
@@ -671,7 +934,7 @@ const CourseDetail = () => {
                 )}
               </Card>
             </TabsContent>
- 
+
             <TabsContent value="topics" className="mt-8">
               <Card>
                 <CardHeader>
@@ -726,112 +989,177 @@ const CourseDetail = () => {
                 )}
               </Card>
             </TabsContent>
- 
-            <TabsContent value="quizzes" className="mt-8">
+
+             <TabsContent value="quizzes" className="mt-8">
+      <Card>
+        <CardHeader>
+          <CardTitle>Practice Quizzes</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {!showQuizUI ? (
+            <div className="grid gap-4">
+              {quizzes.map((quiz, index) => (
+                <div
+                  key={quiz.id}
+                  className={`p-4 border rounded-lg ${quiz.locked ? 'opacity-50' : 'hover:border-primary cursor-pointer'}`}
+                  onClick={() => handleQuizClick(quiz.id, quiz.locked)}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-medium">{quiz.title}</span>
+                    {quiz.locked ? (
+                      <Badge variant="secondary">Locked</Badge>
+                    ) : (
+                      <Badge variant="outline">Available</Badge>
+                    )}
+                  </div>
+                </div>
+              ))}
+              {showRegisterPrompt && (
+                <div className="flex flex-col items-center mt-6">
+                  <p className="mb-3 text-muted-foreground">Please enroll to unlock more quizzes.</p>
+                  <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
+                    Enroll for More Quizzes
+                  </Button>
+                </div>
+              )}
+            </div>
+          ) : (
+            quizQuestions.length ? (
+              quizCompleted ? (
+                <div className="text-center mt-8">
+                  <h3 className="text-2xl font-bold mb-4">Quiz Completed!</h3>
+                  <p className="text-lg mb-2">Your Score: <span className="font-semibold">{score} / {quizQuestions.length}</span></p>
+                  {getCupInfo(score) && (
+                    <div className="flex flex-col items-center mt-4">
+                      <FaTrophy size={64} color={getCupInfo(score)!.color} />
+                      <span className="mt-2 text-lg font-semibold" style={{ color: getCupInfo(score)!.color }}>{getCupInfo(score)!.label}</span>
+                    </div>
+                  )}
+                  {!getCupInfo(score) && (
+                    <span className="text-muted-foreground">Keep practicing to earn a cup!</span>
+                  )}
+                  <div className="flex justify-center mt-6">
+                    <Button variant="ghost" onClick={() => {
+                      setShowQuizUI(false);
+                      setQuizCompleted(false);
+                      setScore(0);
+                      setAnswers([]);
+                      setCurrentQuestionIndex(0);
+                    }}>Back to Quizzes</Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="max-w-xl mx-auto">
+                  <h4 className="font-semibold mb-4">{currentQuizTitle}</h4>
+                  <div className="mb-6">
+                    <h5 className="font-semibold mb-2">Question {currentQuestionIndex + 1}: {quizQuestions[currentQuestionIndex].question_text}</h5>
+                    <div className="grid gap-2">
+                      {["a", "b", "c", "d"].map((opt) => (
+                        <Button
+                          key={opt}
+                          variant={answers.find((ans) => ans.question_id === quizQuestions[currentQuestionIndex].id)?.selected_option === opt ? "course" : "outline"}
+                          className="w-full text-left"
+                          onClick={() => handleQuizOptionSelect(quizQuestions[currentQuestionIndex].id, opt)}
+                        >
+                          <span className="font-bold mr-2">{opt.toUpperCase()}.</span>
+                          {quizQuestions[currentQuestionIndex][`option_${opt}`]}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex justify-between mt-6">
+                    <Button
+                      variant="outline"
+                      onClick={handlePrevQuestion}
+                      disabled={currentQuestionIndex === 0}
+                    >
+                      Previous
+                    </Button>
+                    {currentQuestionIndex < quizQuestions.length - 1 ? (
+                      <Button
+                        variant="course"
+                        onClick={handleNextQuestion}
+                      >
+                        Next
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="course"
+                        onClick={handleQuizSubmit}
+                        disabled={answers.length !== quizQuestions.length}
+                      >
+                        Submit Quiz
+                      </Button>
+                    )}
+                  </div>
+                  <div className="flex justify-center mt-4">
+                    <Button variant="ghost" onClick={() => {
+                      setShowQuizUI(false);
+                      setAnswers([]);
+                      setCurrentQuestionIndex(0);
+                    }}>Back to Quizzes</Button>
+                  </div>
+                </div>
+              )
+            ) : (
+              <div className="text-center text-muted-foreground">No questions found for this quiz.</div>
+            )
+          )}
+          {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
+        </CardContent>
+      </Card>
+    </TabsContent>
+
+            <TabsContent value="quiz-results" className="mt-8">
               <Card>
                 <CardHeader>
-                  <CardTitle>Practice Quizzes</CardTitle>
+                  <CardTitle>Quiz Results</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {!showQuizUI ? (
-                    <div className="grid gap-4">
-                      {quizzes.map((quiz, index) => (
-                        <div
-                          key={quiz.id}
-                          className={`p-4 border rounded-lg ${quiz.locked ? 'opacity-50' : 'hover:border-primary cursor-pointer'}`}
-                          onClick={() => {
-                            if (quiz.locked) {
-                              setShowRegisterPrompt(true);
-                              return;
-                            }
-                            setScore(0);
-                            setQuizCompleted(false);
-                            handleQuizClick(quiz.id, quiz.locked);
-                          }}
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="font-medium">{quiz.title}</span>
-                            {quiz.locked ? (
-                              <Badge variant="secondary">Locked</Badge>
-                            ) : (
-                              <Badge variant="outline">Available</Badge>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                      {showRegisterPrompt && (
-                        <div className="flex flex-col items-center mt-6">
-                          <p className="mb-3 text-muted-foreground">Please enroll to unlock more quizzes.</p>
-                          <Button variant="course" size="lg" onClick={() => setRegOpen(true)}>
-                            Enroll for More Quizzes
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    quizQuestions.length ? (
-                      quizCompleted ? (
-                        <div className="text-center mt-8">
-                          <h3 className="text-2xl font-bold mb-4">Quiz Completed!</h3>
-                          <p className="text-lg mb-2">Your Score: <span className="font-semibold">{score} / {quizQuestions.length}</span></p>
-                          {getCupInfo(score) && (
-                            <div className="flex flex-col items-center mt-4">
-                              <FaTrophy size={64} color={getCupInfo(score)!.color} />
-                              <span className="mt-2 text-lg font-semibold" style={{ color: getCupInfo(score)!.color }}>{getCupInfo(score)!.label}</span>
-                            </div>
-                          )}
-                          {!getCupInfo(score) && (
-                            <span className="text-muted-foreground">Keep practicing to earn a cup!</span>
-                          )}
-                          <div className="flex justify-center mt-6">
-                            <Button variant="ghost" onClick={() => {
-                              setShowQuizUI(false);
-                              setQuizCompleted(false);
-                              setScore(0);
-                            }}>Back to Quizzes</Button>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="max-w-xl mx-auto">
-                          <div className="mb-4">
-                            <h4 className="font-semibold mb-2">Question {currentQuestionIdx + 1} of {quizQuestions.length}</h4>
-                            <div className="mb-2">{quizQuestions[currentQuestionIdx].question_text}</div>
-                            <div className="grid gap-2">
-                              {["a", "b", "c", "d"].map((opt) => (
-                                <Button
-                                  key={opt}
-                                  variant={selectedOption === opt ? "course" : "outline"}
-                                  className="w-full text-left"
-                                  onClick={() => handleQuizOptionSelect(opt)}
-                                >
-                                  <span className="font-bold mr-2">{opt.toUpperCase()}.</span>
-                                  {quizQuestions[currentQuestionIdx][`option_${opt}`]}
-                                </Button>
-                              ))}
-                            </div>
-                            {quizFeedback && (
-                              <div className={`mt-3 text-center font-semibold ${quizFeedback.startsWith('Correct') ? 'text-green-600' : 'text-red-600'}`}>{quizFeedback}</div>
-                            )}
-                          </div>
-                          <div className="flex justify-between mt-4">
-                            <Button variant="outline" onClick={handleQuizPrev} disabled={currentQuestionIdx === 0}>Prev</Button>
-                            <Button variant="course" onClick={handleQuizSubmit} disabled={!selectedOption || quizCompleted}>Submit</Button>
-                            <Button variant="outline" onClick={handleQuizNext} disabled={currentQuestionIdx === quizQuestions.length - 1}>Next</Button>
-                          </div>
-                          <div className="flex justify-center mt-6">
-                            <Button variant="ghost" onClick={() => setShowQuizUI(false)}>Back to Quizzes</Button>
-                          </div>
-                        </div>
-                      )
+                  {isRegistered ? (
+                    quizResults.length > 0 ? (
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>ID</TableHead>
+                            <TableHead>Title</TableHead>
+                            <TableHead>Score</TableHead>
+                            <TableHead>Total Questions</TableHead>
+                            <TableHead>Time Taken (s)</TableHead>
+                            <TableHead>Submitted At</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {quizResults.map((result) => (
+                            <TableRow key={result.id}>
+                              <TableCell>{result.id}</TableCell>
+                              <TableCell>{result.title}</TableCell>
+                              <TableCell>{result.score}</TableCell>
+                              <TableCell>{result.total_questions}</TableCell>
+                              <TableCell>{result.time_taken}</TableCell>
+                              <TableCell>{new Date(result.submitted_at).toLocaleString()}</TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
                     ) : (
-                      <div className="text-center text-muted-foreground">No questions found for this quiz.</div>
+                      <div className="text-center text-muted-foreground">No quiz results found.</div>
                     )
+                  ) : (
+                    <div className="text-center">
+                      <p className="text-lg text-muted-foreground mb-6">
+                        Register to view your quiz results!
+                      </p>
+                      <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
+                        Sign Up to View Results
+                      </Button>
+                    </div>
                   )}
-                  {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
                 </CardContent>
+                {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
               </Card>
             </TabsContent>
- 
+
             <TabsContent value="online-compiler" className="mt-8">
               <Card>
                 <CardHeader>
@@ -892,7 +1220,7 @@ const CourseDetail = () => {
                             showLineNumbers: true,
                             tabSize: 2,
                             fontSize: 14,
-                            showPrintMargin: false,
+                            showPrintMargin: false
                           }}
                           style={{ width: "980px", height: "500px", borderRadius: "0.5rem" }}
                           className="border rounded-lg mb-4"
@@ -911,7 +1239,7 @@ const CourseDetail = () => {
                 </CardContent>
               </Card>
             </TabsContent>
- 
+
             <TabsContent value="attendance" className="mt-8">
               {isRegistered ? (
                 <Attendance />
@@ -927,7 +1255,7 @@ const CourseDetail = () => {
           </Tabs>
         </div>
       </section>
- 
+
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
           <Card>
@@ -959,7 +1287,7 @@ const CourseDetail = () => {
           </Card>
         </div>
       </section>
- 
+
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Upcoming Batches</h2>
@@ -968,18 +1296,18 @@ const CourseDetail = () => {
               {
                 title: "Weekday Batch",
                 desc: "Mon-Fri, 7PM-9PM",
-                start: "Starts: Jan 15, 2024",
+                start: "Starts: Jan 15, 2024"
               },
               {
                 title: "Weekend Batch",
                 desc: "Sat-Sun, 10AM-2PM",
-                start: "Starts: Jan 20, 2024",
+                start: "Starts: Jan 20, 2024"
               },
               {
                 title: "Intensive Batch",
                 desc: "Mon-Fri, 9AM-5PM",
-                start: "Starts: Feb 1, 2024",
-              },
+                start: "Starts: Feb 1, 2024"
+              }
             ].map((batch, idx) => (
               <Card className="text-center p-6" key={batch.title}>
                 <CardContent>
@@ -1000,11 +1328,11 @@ const CourseDetail = () => {
           <Contactus open={regOpen} setOpen={setRegOpen} />
         </div>
       </section>
- 
+
       <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />
       <Footer />
     </div>
   );
 };
- 
+
 export default CourseDetail;

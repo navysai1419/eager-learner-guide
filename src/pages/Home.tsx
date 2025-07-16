@@ -6,65 +6,80 @@ import Footer from "@/components/Footer";
 import RegistrationDialog from "@/components/ui/RegistrationDialog";
 
 // Import course images
-import webDevCourse from "@/assets/web-development-course.jpg";
-import dataScienceCourse from "@/assets/data-science-course.jpg";
-import digitalMarketingCourse from "@/assets/digital-marketing-course.jpg";
+import webDevCourse from "@/assets/UIUX Developer1.jpg";
+import python from "@/assets/python1.jpg";
+import node from "@/assets/node1.jpg";
+import react from "@/assets/react1.jpg";
+import java from "@/assets/java1.jpg";
+import sql from "@/assets/sql1.jpg";
+import cloud from "@/assets/cloud1.jpg"
+
 
 const mockCourses = [
-	{
-		id: "web-development",
-		title: "Full Stack Web Development",
-		image: webDevCourse,
-		description:
-			"Master modern web development with React, Node.js, and databases. Build real-world applications from scratch.",
-		duration: "12 weeks",
-		level: "Beginner",
-	},
-	{
-		id: "data-science",
-		title: "Data Science & Analytics",
-		image: dataScienceCourse,
-		description:
-			"Learn Python, machine learning, and data visualization to become a data scientist.",
-		duration: "16 weeks",
-		level: "Intermediate",
-	},
-	{
-		id: "digital-marketing",
-		title: "Digital Marketing Mastery",
-		image: digitalMarketingCourse,
-		description:
-			"Master SEO, social media, content marketing, and analytics for business growth.",
-		duration: "8 weeks",
-		level: "Beginner",
-	},
-	{
-		id: "web-development-2",
-		title: "Advanced JavaScript",
-		image: webDevCourse,
-		description:
-			"Deep dive into advanced JavaScript concepts, TypeScript, and modern frameworks.",
-		duration: "10 weeks",
-		level: "Advanced",
-	},
-	{
-		id: "data-science-2",
-		title: "Machine Learning Engineer",
-		image: dataScienceCourse,
-		description:
-			"Build and deploy ML models with TensorFlow, PyTorch, and cloud platforms.",
-		duration: "20 weeks",
-		level: "Advanced",
-	},
-	{
-		id: "digital-marketing-2",
-		title: "Growth Hacking",
-		image: digitalMarketingCourse,
-		description:
-			"Learn startup growth strategies, conversion optimization, and performance marketing.",
-		duration: "6 weeks",
-		level: "Intermediate",
-	},
+	 {
+    id: "web-development",
+    title: "UI/UX Developer",
+    image: webDevCourse,
+    description: "Designed to build industry-ready professionals skilled in both design principles and front-end development..",
+    duration: "12 weeks",
+    level: "Beginner"
+  },
+  {
+    id: "ReactJS",
+    title: "ReactJS / React Native Developer",
+    image: react,
+    description: " Build high-performing, responsive web and mobile applications using a single JavaScript library — React.",
+    duration: "16 weeks",
+    level: "Intermediate"
+  },
+  {
+    id: "Python",
+    title: "Python Developer",
+    image: python,
+    description: "structured to equip you with professional skills in programming, database management, and building scalable APIs using FastAPI",
+    duration: "8 weeks",
+    level: "Beginner"
+  },
+  {
+    id: "Java Developer",
+    title: "Java Developer",
+    image: java,
+    description: " Develop secure, scalable, and high-performance backend systems using Java — one of the most trusted languages in the software industry.",
+    duration: "10 weeks",
+    level: "Advanced"
+  },
+  {
+    id: "Node.js Developer",
+    title: "Node.js Developer",
+    image: node,
+    description: "Thoughtfully designed to help you build scalable, high-performance server-side applications using JavaScript — the language you already know from the frontend",
+    duration: "20 weeks",
+    level: "Advanced"
+  },
+  {
+    id: "SQL & Database Management ",
+    title: "SQL & Database Management ",
+    image: sql,
+    description: "Learn startup growth strategies, conversion optimization, and performance marketing.",
+    duration: "6 weeks",
+    level: "Intermediate"
+  },
+  {
+    id: "Cloud + DevOps Program",
+    title: "Cloud + DevOps Program",
+    image: cloud,
+    description: " secure environments, automate CI/CD pipelines, and operate mission-critical applications in multi-cloud environments",
+    duration: "6 weeks",
+    level: "Intermediate"
+  },
+  {
+	id: "Java fullStack Developer",
+	title: "Java fullStack Developer",
+	image: java,
+	description: "Designed to help you build dynamic web applications from the ground up — covering frontend design, backend logic, and database integration using industry-standard Java technologies.",
+	duration: "6 weeks",
+	level: "Intermediate"
+  },
 ];
 
 const Home = () => {
@@ -132,7 +147,7 @@ const Home = () => {
 						<div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
 							<div>
 								<div className="text-4xl font-bold text-primary mb-2">
-									10,000+
+									1,000+
 								</div>
 								<div className="text-muted-foreground">
 									Students Enrolled
@@ -146,7 +161,7 @@ const Home = () => {
 							</div>
 							<div>
 								<div className="text-4xl font-bold text-primary mb-2">
-									500+
+								20+
 								</div>
 								<div className="text-muted-foreground">
 									Partner Companies

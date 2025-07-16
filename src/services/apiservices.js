@@ -1,5 +1,5 @@
 // apiServices.js
-const BASE_URL = 'http://192.168.0.108:8000';
+const BASE_URL = 'http://192.168.0.109:8000';
 
 // Utility function to get headers with optional token
 const getHeaders = (includeToken = false) => {
@@ -157,6 +157,26 @@ export async function Getattendance() {
     return data;
   } catch (error) {
     console.error('Error fetching attendance:', error);
+    throw error;
+  }
+}
+export async function GetQuizResult() {
+  try {
+    const response = await fetch(`${BASE_URL}/guest/results`, {
+      method: 'GET',
+      headers: getHeaders(true),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Quiz API error:', errorText);
+      throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching quiz results:', error);
     throw error;
   }
 }
