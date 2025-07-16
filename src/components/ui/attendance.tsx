@@ -110,7 +110,7 @@ const Attendance = () => {
   }
  
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
+    <div className="min-h-screen-auto  bg-gray-100 p-6">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Card 1: Student Profile */}
         {/* <div className="bg-white rounded-lg shadow-md p-6">

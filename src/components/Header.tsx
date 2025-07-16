@@ -35,7 +35,7 @@ const Header = () => {
       const fetchProfileData = async () => {
         setLoading(true);
         try {
-          const response = await axios.get("http://192.168.0.108:8000/guest/my-profile", {
+          const response = await axios.get("http://192.168.0.109:8000/guest/my-profile", {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             },
@@ -148,6 +148,7 @@ const Header = () => {
               <SignInDialog />
             </Button>
             <Button variant="ghost" size="sm" onClick={() => setRegOpen(true)}>
+              
               Sign Up
             </Button>
             <RegistrationDialog open={regOpen} setOpen={setRegOpen} />
