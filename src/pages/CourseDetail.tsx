@@ -676,33 +676,33 @@ const handleNextQuestion = () => {
         <Header />
       </div>
 
-      <section className="relative py-16 bg-gradient-to-r from-course-hero to-primary">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="text-white">
-              <Badge className="mb-4 bg-white/20 text-white">{course.level}</Badge>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">{course.title}</h1>
-              <p className="text-xl mb-6 text-white/90">{course.description}</p>
-              <div className="flex items-center space-x-6 mb-8">
+      <section className="relative py-12 sm:py-16 md:py-20 bg-gradient-to-r from-course-hero to-primary">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
+            <div className="text-white order-2 lg:order-1">
+              <Badge className="mb-3 sm:mb-4 bg-white/20 text-white text-xs sm:text-sm">{course.level}</Badge>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 leading-tight">{course.title}</h1>
+              <p className="text-base sm:text-lg md:text-xl mb-4 sm:mb-6 text-white/90 leading-relaxed">{course.description}</p>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0 mb-6 sm:mb-8">
                 <div>
-                  <span className="block text-sm text-white/70">Duration</span>
-                  <span className="text-lg font-semibold">{course.duration}</span>
+                  <span className="block text-xs sm:text-sm text-white/70">Duration</span>
+                  <span className="text-base sm:text-lg font-semibold">{course.duration}</span>
                 </div>
                 {/* <div>
                   <span className="block text-sm text-white/70">Price</span>
                   <span className="text-lg font-semibold">{course.price}</span>
                 </div> */}
                 <div>
-                  <span className="block text-sm text-white/70">Instructor</span>
-                  <span className="text-lg font-semibold">{course.instructor}</span>
+                  <span className="block text-xs sm:text-sm text-white/70">Instructor</span>
+                  <span className="text-base sm:text-lg font-semibold">{course.instructor}</span>
                 </div>
               </div>
-              <Button variant="course" size="lg" onClick={() => setRegOpen(true)}>
+              <Button variant="course" size="lg" onClick={() => setRegOpen(true)} className="w-full sm:w-auto">
                 Enroll Now
               </Button>
               <Contactus open={regOpen} setOpen={setRegOpen} />
             </div>
-            <div className="lg:block">
+            <div className="order-1 lg:order-2">
               <img
                 src={course.image}
                 alt={course.title}
@@ -713,19 +713,19 @@ const handleNextQuestion = () => {
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-9">
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="projects">Projects</TabsTrigger>
-              <TabsTrigger value="learning">What You'll Learn</TabsTrigger>
-              <TabsTrigger value="certification">Certification</TabsTrigger>
-              <TabsTrigger value="topics">Weekly Topics</TabsTrigger>
-              <TabsTrigger value="quizzes">Quizzes</TabsTrigger>
-              <TabsTrigger value="quiz-results">Quiz Results</TabsTrigger>
-              <TabsTrigger value="online-compiler">Online Compiler</TabsTrigger>
-              <TabsTrigger value="attendance">Attendance</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-1 h-auto p-1">
+              <TabsTrigger value="overview" className="text-xs sm:text-sm px-2 sm:px-3 py-2">Overview</TabsTrigger>
+              <TabsTrigger value="projects" className="text-xs sm:text-sm px-2 sm:px-3 py-2">Projects</TabsTrigger>
+              <TabsTrigger value="learning" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden sm:block">What You'll Learn</TabsTrigger>
+              <TabsTrigger value="certification" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden lg:block">Certification</TabsTrigger>
+              <TabsTrigger value="topics" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden lg:block">Weekly Topics</TabsTrigger>
+              <TabsTrigger value="quizzes" className="text-xs sm:text-sm px-2 sm:px-3 py-2">Quizzes</TabsTrigger>
+              <TabsTrigger value="quiz-results" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden sm:block">Quiz Results</TabsTrigger>
+              <TabsTrigger value="online-compiler" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden lg:block">Online Compiler</TabsTrigger>
+              <TabsTrigger value="attendance" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden lg:block">Attendance</TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview" className="mt-8">

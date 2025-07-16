@@ -94,21 +94,21 @@ const Home = () => {
 			{/* Main content wrapper to ensure scrolling starts below header */}
 			<main className="flex-1">
 				{/* Hero Section */}
-				<section className="relative bg-gradient-to-br from-course-hero via-primary to-course-gradient-end text-white py-20">
-					<div className="container mx-auto px-4 text-center">
-						<h1 className="text-5xl md:text-6xl font-bold mb-6">
+				<section className="relative bg-gradient-to-br from-course-hero via-primary to-course-gradient-end text-white py-12 sm:py-16 md:py-20 lg:py-24">
+					<div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+						<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6">
 							Transform Your Career
-							<br />
-							<span className="text-accent">Learn Skills That Matter</span>
+							<br className="hidden sm:block" />
+							<span className="block sm:inline text-accent">Learn Skills That Matter</span>
 						</h1>
-						<p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto">
+						<p className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-white/90 max-w-xs sm:max-w-2xl lg:max-w-3xl mx-auto leading-relaxed">
 							Join thousands of students who've launched successful careers
 							through our industry-focused courses.
 						</p>
 					<Button
 							variant="course"
 							size="lg"
-							className="text-lg px-8 py-4 h-auto"
+							className="text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 h-auto"
 							onClick={() => setRegOpen(true)}
 						>
 							Start Learning Today
@@ -121,19 +121,19 @@ const Home = () => {
 				</section>
 
 				{/* Courses Section */}
-				<section className="py-20">
-					<div className="container mx-auto px-4">
-						<div className="text-center mb-12">
-							<h2 className="text-4xl font-bold text-foreground mb-4">
+				<section className="py-12 sm:py-16 md:py-20">
+					<div className="container mx-auto px-4 sm:px-6 lg:px-8">
+						<div className="text-center mb-8 sm:mb-10 md:mb-12">
+							<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-3 sm:mb-4">
 								Featured Courses
 							</h2>
-							<p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+							<p className="text-lg sm:text-xl text-muted-foreground max-w-xl sm:max-w-2xl mx-auto leading-relaxed px-4">
 								Choose from our carefully curated selection of industry-relevant
 								courses designed to advance your career.
 							</p>
 						</div>
 
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8">
 							{mockCourses.map((course) => (
 								<CourseCard key={course.id} {...course} />
 							))}
@@ -142,36 +142,36 @@ const Home = () => {
 				</section>
 
 				{/* Stats Section */}
-				<section className="py-16 bg-muted">
-					<div className="container mx-auto px-4">
-						<div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-							<div>
-								<div className="text-4xl font-bold text-primary mb-2">
+				<section className="py-12 sm:py-16 bg-muted">
+					<div className="container mx-auto px-4 sm:px-6 lg:px-8">
+						<div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
+							<div className="p-4">
+								<div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-2">
 									1,000+
 								</div>
-								<div className="text-muted-foreground">
+								<div className="text-sm sm:text-base text-muted-foreground">
 									Students Enrolled
 								</div>
 							</div>
-							<div>
-								<div className="text-4xl font-bold text-primary mb-2">95%</div>
-								<div className="text-muted-foreground">
+							<div className="p-4">
+								<div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-2">95%</div>
+								<div className="text-sm sm:text-base text-muted-foreground">
 									Job Placement Rate
 								</div>
 							</div>
-							<div>
-								<div className="text-4xl font-bold text-primary mb-2">
+							<div className="p-4">
+								<div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-2">
 								20+
 								</div>
-								<div className="text-muted-foreground">
+								<div className="text-sm sm:text-base text-muted-foreground">
 									Partner Companies
 								</div>
 							</div>
-							<div>
-								<div className="text-4xl font-bold text-primary mb-2">
+							<div className="p-4">
+								<div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-2">
 									4.8/5
 								</div>
-								<div className="text-muted-foreground">
+								<div className="text-sm sm:text-base text-muted-foreground">
 									Average Rating
 								</div>
 							</div>

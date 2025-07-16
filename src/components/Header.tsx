@@ -55,26 +55,25 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container h-16 flex items-center" style={{ minWidth: '1900px' }}>
-        {/* 12-column grid for header content */}
-        <div className="grid grid-cols-12 w-full items-center gap-4">
-          {/* Left Section: Main Logo (col-span-3) */}
-          <div className="col-span-3 flex items-center space-x-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Left Section: Main Logo */}
+          <div className="flex items-center flex-shrink-0">
             <Link to="/" className="flex items-center space-x-2">
-              <img src={techLogo} alt="Main Logo" className="h-15 w-20" />
+              <img src={techLogo} alt="Main Logo" className="h-10 w-16 sm:h-12 sm:w-20" />
             </Link>
           </div>
 
-          {/* Center Section: Navigation (col-span-6) */}
-          <nav className="col-span-6 flex items-center justify-center space-x-8">
-            <Link to="/courses" className="text-foreground hover:text-primary transition-colors font-medium">Courses</Link>
-            <Link to="/jobs" className="text-foreground hover:text-primary transition-colors font-medium">Jobs</Link>
-            <Link to="/success-stories" className="text-foreground hover:text-primary transition-colors font-medium">Success Stories</Link>
+          {/* Desktop Navigation - hidden on mobile */}
+          <nav className="hidden md:flex items-center justify-center space-x-6 lg:space-x-8">
+            <Link to="/courses" className="text-foreground hover:text-primary transition-colors font-medium text-sm lg:text-base">Courses</Link>
+            <Link to="/jobs" className="text-foreground hover:text-primary transition-colors font-medium text-sm lg:text-base">Jobs</Link>
+            <Link to="/success-stories" className="text-foreground hover:text-primary transition-colors font-medium text-sm lg:text-base">Success Stories</Link>
           </nav>
 
-          {/* Right Section: Company Logo, Profile, Auth Buttons (col-span-3) */}
-          <div className="col-span-3 flex items-center justify-end space-x-4">
-            <img src={logoImg} alt="Company Logo" className="h-8 w-25" />
+          {/* Right Section: Company Logo, Profile, Auth Buttons */}
+          <div className="flex items-center justify-end space-x-2 sm:space-x-4">
+            <img src={logoImg} alt="Company Logo" className="h-6 w-20 sm:h-8 sm:w-25 hidden sm:block" />
             {/* Profile Icon triggers dialog */}
             <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center cursor-pointer hover:bg-blue-200 transition-colors" onClick={() => setProfileOpen(true)}>
               <span className="text-blue-600 font-bold text-sm">{profileData?.name?.charAt(0).toUpperCase() || "P"}</span>
@@ -144,13 +143,18 @@ const Header = () => {
                 </div>
               </DialogContent>
             </Dialog>
-            <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" className="hidden sm:flex">
               <SignInDialog />
             </Button>
-            <Button variant="ghost" size="sm" onClick={() => setRegOpen(true)}>
-              
+            <Button variant="ghost" size="sm" onClick={() => setRegOpen(true)} className="hidden sm:flex">
               Sign Up
             </Button>
+            {/* Mobile menu button - show only on mobile */}
+            <div className="md:hidden flex items-center space-x-2">
+              <Button variant="outline" size="sm" onClick={() => setRegOpen(true)} className="text-xs px-2">
+                Sign Up
+              </Button>
+            </div>
             <RegistrationDialog open={regOpen} setOpen={setRegOpen} />
           </div>
         </div>
