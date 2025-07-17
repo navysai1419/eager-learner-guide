@@ -14,7 +14,7 @@ interface RegistrationDialogProps {
 }
 
 const technicalSkills = [
-  "Java", "Python", "React", "Node.js", "C++", "SQL", "HTML/CSS"
+  "Java", "Python", "React", "Node.js", "SQL", "HTML/CSS","Cloud+Devops","UI/UX"
 ];
 const nonTechnicalSkills = [
   "Communication", "Management", "Marketing", "Sales", "Design"
@@ -95,31 +95,31 @@ const RegistrationDialog = ({ open, setOpen }: RegistrationDialogProps) => {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="fullName">Full Name</Label>
-                <Input id="name" placeholder="Full Name" value={form.name} onChange={handleChange} />
+                <Input id="name" placeholder="Full Name" value={form.name} onChange={handleChange} required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
-                <Input id="email" type="email" placeholder="Email Address" value={form.email} onChange={handleChange} />
+                <Input id="email" type="email" placeholder="Email Address" value={form.email} onChange={handleChange} required/>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="country">Country</Label>
-                <Input id="country" placeholder="Select Country" value={form.country} onChange={handleChange} />
+                <Input id="country" placeholder="Country" value={form.country} onChange={handleChange}  required/>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">Enter phone number</Label>
-                <Input id="phone" type="tel" placeholder="+1 (US)" value={form.phone} onChange={handleChange} />
+                <Input id="phone" type="tel" placeholder="+91XXXXXXXXXX" value={form.phone} onChange={handleChange} required />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="qualifications">Qualifications</Label>
-                <Input id="qualification" placeholder="Select Education Status" value={form.qualification} onChange={handleChange} />
+                <Input id="qualification" placeholder="Qualification" value={form.qualification} onChange={handleChange} required/>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="year">Year (e.g., 2024)</Label>
-                <Input id="passedout_year" placeholder="Year (e.g., 2024)" value={form.passedout_year} onChange={handleChange} />
+                <Input id="passedout_year" placeholder="Year (e.g., 2024)" value={form.passedout_year} onChange={handleChange} required/>
               </div>
             </div>
             {/* Category and Skill Selects */}
@@ -156,21 +156,21 @@ const RegistrationDialog = ({ open, setOpen }: RegistrationDialogProps) => {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="state">State</Label>
-                <Input id="state" placeholder="State" value={form.state} onChange={handleChange} />
+                <Input id="state" placeholder="State" value={form.state} onChange={handleChange} required/>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="city">City</Label>
-                <Input id="city" placeholder="City" value={form.city} onChange={handleChange} />
+                <Input id="city" placeholder="City" value={form.city} onChange={handleChange} required/>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} />
+                <Input id="password" type="password" placeholder="Password" value={form.password} onChange={handleChange} required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <Input id="confirmPassword" type="password" placeholder="Confirm Password" value={form.confirmPassword} onChange={handleChange} />
+                <Input id="confirmPassword" type="password" placeholder="Confirm Password" value={form.confirmPassword} onChange={handleChange} required />
               </div>
             </div>
             {error && <div className="text-red-500 text-sm text-center">{error}</div>}

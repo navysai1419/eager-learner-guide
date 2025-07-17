@@ -1,5 +1,5 @@
 // apiServices.js
-const BASE_URL = 'http://192.168.0.109:8000';
+const BASE_URL = 'https://lauratek.in:8000';
 
 // Utility function to get headers with optional token
 const getHeaders = (includeToken = false) => {
@@ -177,6 +177,26 @@ export async function GetQuizResult() {
     return data;
   } catch (error) {
     console.error('Error fetching quiz results:', error);
+    throw error;
+  }
+}
+export async function getjobs(){
+  try{
+    const response = await fetch(`${BASE_URL}/company`, {
+      method: 'GET',
+      headers: getHeaders(true),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Jobs API error:', errorText);
+      throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching jobs:', error);
     throw error;
   }
 }
