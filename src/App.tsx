@@ -17,6 +17,10 @@ import Compiler from "./components/ui/compiler";
 import Attendance from "./components/ui/attendance";
 import MyCourses from "./components/mycourses";
 import SuccessStories from "./components/ui/Successstories";
+import AboutUs from "./pages/aboutus";
+import Terms from "./components/ui/Terms";
+import Policy from "./components/ui/Policy";
+import Support from "./components/ui/Support";
 // import Contactus from "./components/ui/contactus";
 
 const queryClient = new QueryClient();
@@ -44,6 +48,11 @@ const App = () => (
           <Route path="/dashboard/compiler" element={<Compiler />} />
           <Route path="/dashboard/assessments" element={<Assessments />} />
           <Route path="/success-stories" element={<SuccessStories />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Policy />} />
+          <Route path="/support" element={<Support />} />
+          {/* Add more routes as needed */}
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

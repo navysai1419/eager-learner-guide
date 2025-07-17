@@ -29,10 +29,13 @@ const Footer = () => {
               </li>
               <li>
                 <a href="tel:+1234567890" className="hover:text-primary transition-colors">
-                  +1 (234) 567-890
+                  +91-7993256679 
                 </a>
               </li>
-              <li className="leading-relaxed">123 Learning Street, Education City</li>
+              <li className="leading-relaxed"> Head Office – Hyderabad 
+LauraTek LMS – Training & Placement 
+5th Floor, Square Hub, Ayyappa Society, 
+Madhapur, Hyderabad – 500081, Telangana, India</li>
             </ul>
           </div>
 
@@ -46,13 +49,13 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/careers" className="hover:text-primary transition-colors">
+                <Link to="/jobs" className="hover:text-primary transition-colors">
                   Careers
                 </Link>
               </li>
               <li>
-                <Link to="/support" className="hover:text-primary transition-colors">
-                  Support
+                <Link to="/terms" className="hover:text-primary transition-colors">
+                  Terms and Conditions
                 </Link>
               </li>
               <li>
@@ -60,23 +63,43 @@ const Footer = () => {
                   Privacy Policy
                 </Link>
               </li>
-            </ul>
+               <li>
+                <Link to="/support" className="hover:text-primary transition-colors">
+                  Support
+                </Link>
+              </li>
+            </ul> 
           </div>
 
           {/* Partners */}
           <div className="space-y-3 sm:space-y-4">
-            <h4 className="font-semibold text-foreground text-base">Partners</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>TechCorp Industries</li>
-              <li>DataViz Solutions</li>
-              <li>Marketing Pro</li>
-              <li>Future Skills Institute</li>
-            </ul>
-          </div>
+  <h4 className="font-semibold text-foreground text-base">Partners</h4>
+  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4 text-sm text-muted-foreground">
+    <li>pvp staffing</li>
+    <li>elgebra inc</li>
+    <li>cerebraix</li>
+    <li>paytm services</li>
+    <li>aparajita consultancy services</li>
+    <li>rozgar info</li>
+    <li>nobivzco infotech pvt ltd</li>
+    <li>IBM</li>
+    <li>Cognizant</li>
+    <li>Hiring Panda</li>
+    <li>HIC Global Solutions</li>
+    <li>Krazy Tech</li>
+    <li>Inity Infotech</li>
+    <li>The Tech Galore</li>
+    <li>TechCorp Industries</li>
+    <li>DataViz Solutions</li>
+    <li>Marketing Pro</li>
+    <li>Future Skills Institute</li>
+  </ul>
+</div>
+
         </div>
 
         <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 Laura Tek. All rights reserved.</p>
+          <p>&copy; 2025 Laura Tek. All rights reserved.</p>
         </div>
       </div>
     </footer>

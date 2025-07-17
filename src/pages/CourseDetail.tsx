@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -16,7 +16,7 @@ import node from "@/assets/Node.jpg";
 import react from "@/assets/react.jpg";
 import java from "@/assets/Java .jpg";
 import sql from "@/assets/SQL.jpg";
-import cloud from "@/assets/cloud.jpg"
+import cloud from "@/assets/cloud.jpg";
 import instructorPortrait from "@/assets/instructor-portrait.jpg";
 import Contactus from "@/components/ui/contactus";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -32,8 +32,7 @@ const courseData = {
     description: "Designed to build industry-ready professionals skilled in both design principles and front-end development.",
     duration: "12 weeks",
     level: "Beginner",
-    // price: "$499",
-    instructor: "Sarah Johnson",
+    instructor: "S. Vamsi",
     weeklyTopics: [
       "Figma",
       "Canva",
@@ -91,7 +90,6 @@ const courseData = {
     description: "Master the art of building interactive UIs, managing dynamic data flows, and deploying cross-platform apps using ReactJS for web and React Native for mobile",
     duration: "16 weeks",
     level: "Intermediate",
-    // price: "$699",
     instructor: "Dr. Michael Chen",
     weeklyTopics: [
       "JSX (JavaScript XML)",
@@ -145,7 +143,6 @@ const courseData = {
     description: "From writing clean Python scripts to creating full-fledged backend systems, you’ll master backend logic, data handling, and seamless API integration",
     duration: "8 weeks",
     level: "Beginner",
-    // price: "$399",
     instructor: "Emma Rodriguez",
     weeklyTopics: [
       "Python Basics",
@@ -199,7 +196,6 @@ const courseData = {
     description: "From writing clean Python scripts to creating full-fledged backend systems, you’ll master backend logic, data handling, and seamless API integration",
     duration: "8 weeks",
     level: "Beginner",
-    // price: "$399",
     instructor: "Emma Rodriguez",
     weeklyTopics: [
       "Java Basics",
@@ -252,7 +248,6 @@ const courseData = {
     description: "Master the JavaScript-powered backend stack and build real-time, event-driven applications",
     duration: "8 weeks",
     level: "Beginner",
-    // price: "$399",
     instructor: "Emma Rodriguez",
     weeklyTopics: [
       "Node.js Fundamentals",
@@ -302,7 +297,6 @@ const courseData = {
     description: "most widely used open-source relational database systems. Develop a strong foundation in relational database concepts and SQL query writing",
     duration: "8 weeks",
     level: "Beginner",
-    // price: "$399",
     instructor: "Emma Rodriguez",
     weeklyTopics: [
       "SELECT, INSERT, UPDATE, DELETE",
@@ -352,8 +346,7 @@ const courseData = {
     description: "deploying, managing, and automating applications across leading cloud platforms — AWS and Azure — using powerful DevOps tools",
     duration: "8 weeks",
     level: "Beginner",
-    // price: "$399",
-    instructor: "Emma Rodriguez",
+    instructor: "Malleshwar",
     weeklyTopics: [
       "EC2",
       "S3, IAM",
@@ -405,7 +398,7 @@ const courseData = {
   "Java fullStack Developer": {
     title: "Java fullStack Developer",
     image: java,
-    description: " designed to help you build dynamic web applications from the ground up — covering frontend design, backend logic, and database integration using industry-standard Java technologies and deploy modern web applications end-to-end ",
+    description: "designed to help you build dynamic web applications from the ground up — covering frontend design, backend logic, and database integration using industry-standard Java technologies and deploy modern web applications end-to-end",
     duration: "8 weeks",
     level: "Beginner",
     price: "$399",
@@ -417,7 +410,6 @@ const courseData = {
       "Spring Boot",
       "Microservices",
       "MySQL",
- 
     ],
     projects: [
       "TaskTrove",
@@ -431,7 +423,6 @@ const courseData = {
       "Handle client requests, data processing, and error handling and Implement microservices architecture for modular app design",
       "Creating and managing relational databases with MySQL",
       "Connect backend applications to databases using Spring Data JPA",
-     
     ],
     projectDetails: [
       {
@@ -498,7 +489,7 @@ const CourseDetail = () => {
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [score, setScore] = useState(0);
   const [quizStartTime, setQuizStartTime] = useState<number | null>(null);
-   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const course = courseData[id as keyof typeof courseData];
 
@@ -535,8 +526,8 @@ const CourseDetail = () => {
   ];
 
   const quizzes = [
-    { id: 1, title: "java", completed: false },
-    { id: 2, title: id === "web-development" ? "React Basics" : id === "data-science" ? "Python Basics" : "Java Basics", completed: false },
+    { id: 1, title: "aptitude", completed: false },
+    { id: 2, title: id === "web-development" ? "testing" : id === "data-science" ? "Python Basics" : "Java Basics", completed: false },
     { id: 3, title: id === "web-development" ? "Backend Development" : id === "data-science" ? "Machine Learning" : "Social Media", completed: false },
     { id: 4, title: "Advanced Topics", completed: false, locked: true }
   ];
@@ -571,7 +562,8 @@ const CourseDetail = () => {
       setShowRegisterPrompt(true);
     }
   };
-const handleNextQuestion = () => {
+
+  const handleNextQuestion = () => {
     if (currentQuestionIndex < quizQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
@@ -606,7 +598,7 @@ const handleNextQuestion = () => {
     };
 
     try {
-      const response = await fetch('http://192.168.0.109:8000/guest/submit', {
+      const response = await fetch('https://lauratek.in:8000/guest/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -671,663 +663,692 @@ const handleNextQuestion = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-background">
       <div className="sticky top-0 z-50 bg-background">
         <Header />
       </div>
 
-      <section className="relative py-12 sm:py-16 md:py-20 bg-gradient-to-r from-course-hero to-primary">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
-            <div className="text-white order-2 lg:order-1">
-              <Badge className="mb-3 sm:mb-4 bg-white/20 text-white text-xs sm:text-sm">{course.level}</Badge>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 leading-tight">{course.title}</h1>
-              <p className="text-base sm:text-lg md:text-xl mb-4 sm:mb-6 text-white/90 leading-relaxed">{course.description}</p>
-              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0 mb-6 sm:mb-8">
-                <div>
-                  <span className="block text-xs sm:text-sm text-white/70">Duration</span>
-                  <span className="text-base sm:text-lg font-semibold">{course.duration}</span>
+      <main className="flex-grow">
+        <section className="relative py-12 sm:py-16 md:py-20 bg-gradient-to-r from-course-hero to-primary">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
+              <div className="text-white order-2 lg:order-1">
+                <Badge className="mb-3 sm:mb-4 bg-white/20 text-white text-xs sm:text-sm">{course.level}</Badge>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 leading-tight">{course.title}</h1>
+                <p className="text-base sm:text-lg md:text-xl mb-4 sm:mb-6 text-white/90 leading-relaxed">{course.description}</p>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-4 sm:space-y-0 mb-6 sm:mb-8">
+                  <div>
+                    <span className="block text-xs sm:text-sm text-white/70">Duration</span>
+                    <span className="text-base sm:text-lg font-semibold">{course.duration}</span>
+                  </div>
+                  <div>
+                    <span className="block text-xs sm:text-sm text-white/70">Instructor</span>
+                    <span className="text-base sm:text-lg font-semibold">{course.instructor}</span>
+                  </div>
                 </div>
-                {/* <div>
-                  <span className="block text-sm text-white/70">Price</span>
-                  <span className="text-lg font-semibold">{course.price}</span>
-                </div> */}
-                <div>
-                  <span className="block text-xs sm:text-sm text-white/70">Instructor</span>
-                  <span className="text-base sm:text-lg font-semibold">{course.instructor}</span>
-                </div>
+                <Button variant="course" size="lg" onClick={() => setRegOpen(true)} className="w-full sm:w-auto">
+                  Enroll Now
+                </Button>
+                <Contactus open={regOpen} setOpen={setRegOpen} />
               </div>
-              <Button variant="course" size="lg" onClick={() => setRegOpen(true)} className="w-full sm:w-auto">
-                Enroll Now
-              </Button>
-              <Contactus open={regOpen} setOpen={setRegOpen} />
-            </div>
-            <div className="order-1 lg:order-2">
-              <img
-                src={course.image}
-                alt={course.title}
-                className="w-full rounded-lg shadow-2xl"
-              />
+              <div className="order-1 lg:order-2">
+                <img
+                  src={course.image}
+                  alt={course.title}
+                  className="w-full rounded-lg shadow-2xl"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="py-12 sm:py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <Tabs defaultValue="overview" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-1 h-auto p-1">
-              <TabsTrigger value="overview" className="text-xs sm:text-sm px-2 sm:px-3 py-2">Overview</TabsTrigger>
-              <TabsTrigger value="projects" className="text-xs sm:text-sm px-2 sm:px-3 py-2">Projects</TabsTrigger>
-              <TabsTrigger value="learning" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden sm:block">What You'll Learn</TabsTrigger>
-              <TabsTrigger value="certification" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden lg:block">Certification</TabsTrigger>
-              <TabsTrigger value="topics" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden lg:block">Weekly Topics</TabsTrigger>
-              <TabsTrigger value="quizzes" className="text-xs sm:text-sm px-2 sm:px-3 py-2">Quizzes</TabsTrigger>
-              <TabsTrigger value="quiz-results" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden sm:block">Quiz Results</TabsTrigger>
-              <TabsTrigger value="online-compiler" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden lg:block">Online Compiler</TabsTrigger>
-              <TabsTrigger value="attendance" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden lg:block">Attendance</TabsTrigger>
-            </TabsList>
+        <section className="py-12 sm:py-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <Tabs defaultValue="overview" className="w-full">
+              <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-1 h-auto p-1">
+                <TabsTrigger value="overview" className="text-xs sm:text-sm px-2 sm:px-3 py-2">Overview</TabsTrigger>
+                <TabsTrigger value="projects" className="text-xs sm:text-sm px-2 sm:px-3 py-2">Projects</TabsTrigger>
+                <TabsTrigger value="learning" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden sm:block">What You'll Learn</TabsTrigger>
+                <TabsTrigger value="certification" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden lg:block">Certification</TabsTrigger>
+                <TabsTrigger value="topics" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden lg:block">Weekly Topics</TabsTrigger>
+                <TabsTrigger value="quizzes" className="text-xs sm:text-sm px-2 sm:px-3 py-2">Quizzes</TabsTrigger>
+                <TabsTrigger value="quiz-results" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden sm:block">Quiz Results</TabsTrigger>
+                <TabsTrigger value="online-compiler" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden lg:block">Online Compiler</TabsTrigger>
+                <TabsTrigger value="attendance" className="text-xs sm:text-sm px-2 sm:px-3 py-2 hidden lg:block">Attendance</TabsTrigger>
+              </TabsList>
 
-            <TabsContent value="overview" className="mt-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Course Overview</CardTitle>
-                </CardHeader>
-                <CardContent className="prose max-w-none">
-                  <p>
-                    This comprehensive course is designed to take you from beginner to professional level.
-                    You'll work on real-world projects, learn industry best practices, and build a portfolio
-                    that will help you land your dream job.
-                  </p>
-                  {isRegistered ? (
-                    <>
-                      <p className="text-lg text-muted-foreground mb-6">
-                        {course.description}
-                      </p>
-                      <p>
-                        Our experienced instructors provide personalized feedback and mentorship throughout
-                        your learning journey. Join a community of like-minded learners and get the support
-                        you need to succeed.
-                      </p>
-                    </>
-                  ) : (
-                    <div className="text-center">
-                      <p className="text-lg text-muted-foreground mb-6">
-                        Register to unlock the full course overview and start your learning journey!
-                      </p>
-                      <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
-                        Sign Up to View Overview
-                      </Button>
-                    </div>
-                  )}
-                </CardContent>
-                {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
-                {isRegistered && (
-                  <>
-                    <Button variant="course" className="mt-6 w-full" size="lg" onClick={() => setRegOpen(true)}>
-                      Enroll Now For This Course
-                    </Button>
-                    <Contactus open={regOpen} setOpen={setRegOpen} />
-                  </>
-                )}
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="projects" className="mt-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Hands-on Projects</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid gap-4">
-                    {course.projects.map((project, index) => (
-                      <div
-                        key={index}
-                        className="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:border-primary"
-                        onClick={() => {
-                          setSelectedProject(index);
-                          if (!isRegistered) {
-                            setRegDialogOpen(true);
-                          }
-                        }}
-                      >
-                        <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
-                          {index + 1}
-                        </div>
-                        <span className="font-medium">{project}</span>
-                      </div>
-                    ))}
-                  </div>
-                  {isRegistered && selectedProject !== null && (
-                    <div className="mt-6 p-6 border rounded-lg bg-muted">
-                      <h4 className="text-lg font-semibold mb-2">Project Details</h4>
-                      <p className="mb-2">{course.projectDetails[selectedProject].description}</p>
-                      <div className="mb-2">
-                        <span className="font-semibold">Content: </span>{course.projectDetails[selectedProject].content}
-                      </div>
-                      <div className="mb-4">
-                        <span className="font-semibold">Technologies Used: </span>
-                        {course.projectDetails[selectedProject].technologies.join(", ")}
-                      </div>
-                      <div className="flex justify-center">
-                        <Button variant="course" onClick={() => setShowContactDialog(true)}>
-                          More About This
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-              <RegistrationDialog
-                open={regDialogOpen}
-                setOpen={(open) => {
-                  setRegDialogOpen(open);
-                  if (!open && selectedProject !== null) {
-                    setIsRegistered(true);
-                  }
-                }}
-              />
-              <Contactus open={showContactDialog} setOpen={setShowContactDialog} />
-            </TabsContent>
-
-            <TabsContent value="learning" className="mt-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle>What You'll Learn</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {isRegistered ? (
-                    <>
-                      <div className="grid gap-3">
-                        {course.learningOutcomes.map((outcome, index) => (
-                          <div key={index} className="flex items-start space-x-3">
-                            <div className="w-5 h-5 rounded-full bg-success text-white flex items-center justify-center text-xs mt-0.5">
-                              ✓
-                            </div>
-                            <span>{outcome}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-6 text-muted-foreground">
-                        <p>
-                          By enrolling, you'll gain hands-on experience, personalized feedback, and access to exclusive resources that will accelerate your learning and career growth.
-                        </p>
-                        <p className="mt-2">
-                          Unlock advanced modules, real-world projects, and direct mentorship from industry experts.
-                        </p>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="text-center">
-                      <p className="text-lg text-muted-foreground mb-6">
-                        Register to unlock the full list of learning outcomes and access all course features!
-                      </p>
-                      <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
-                        Sign Up to View Learning Outcomes
-                      </Button>
-                    </div>
-                  )}
-                </CardContent>
-                {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
-                {isRegistered && (
-                  <>
-                    <Button variant="course" className="mt-6 w-full" size="lg" onClick={() => setRegOpen(true)}>
-                      Enroll Now For This Course
-                    </Button>
-                    <Contactus open={regOpen} setOpen={setRegOpen} />
-                  </>
-                )}
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="certification" className="mt-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Summer Camp Certification</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {isRegistered ? (
-                    <>
-                      <div className="bg-instructor p-6 rounded-lg mb-6">
-                        <h3 className="text-xl font-semibold mb-4">Industry-Recognized Certificate</h3>
-                        <p className="mb-4">
-                          Upon successful completion of this course, you'll receive a certificate that's
-                          recognized by top tech companies worldwide.
-                        </p>
-                        <ul className="space-y-2">
-                          <li>• Verified completion certificate</li>
-                          <li>• LinkedIn badge for your profile</li>
-                          <li>• Portfolio review and feedback</li>
-                          <li>• Job placement assistance</li>
-                        </ul>
-                      </div>
-                      <div className="bg-muted p-6 rounded-lg mb-6">
-                        <h4 className="text-lg font-semibold mb-2">What You'll Gain from the Camp</h4>
-                        <ul className="list-disc pl-6 space-y-1">
-                          <li>Mastery of in-demand technologies for {course.title}</li>
-                          <li>Real-world project experience and portfolio building</li>
-                          <li>Direct mentorship from industry professionals</li>
-                          <li>Networking opportunities with peers and hiring partners</li>
-                          <li>Access to exclusive webinars and workshops</li>
-                        </ul>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="text-center">
-                      <p className="text-lg text-muted-foreground mb-6">
-                        Register to unlock certification details and see how this camp can boost your career!
-                      </p>
-                      <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
-                        Sign Up to View Certification Details
-                      </Button>
-                    </div>
-                  )}
-                </CardContent>
-                {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
-                {isRegistered && (
-                  <>
-                    <Button variant="course" className="mt-6 w-full" size="lg" onClick={() => setRegOpen(true)}>
-                      Enroll Now to Get Certificate
-                    </Button>
-                    <Contactus open={regOpen} setOpen={setRegOpen} />
-                  </>
-                )}
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="topics" className="mt-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Weekly Topics</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {isRegistered ? (
-                    <>
-                      <div className="grid gap-3">
-                        {course.weeklyTopics.map((topic, index) => (
-                          <div key={index} className="flex items-center space-x-3 p-3 border rounded-lg">
-                            <span className="text-sm font-medium text-primary">Week {index + 1}</span>
-                            <span>{topic}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-6 text-muted-foreground">
-                        <p>
-                          The course is structured to build your skills week by week, with hands-on assignments and interactive sessions for each topic. By joining, you'll unlock detailed resources, live Q&A, and project-based learning for every module.
-                        </p>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="grid gap-3">
-                        {course.weeklyTopics.slice(0, 6).map((topic, index) => (
-                          <div key={index} className="flex items-center space-x-3 p-3 border rounded-lg">
-                            <span className="text-sm font-medium text-primary">Week {index + 1}</span>
-                            <span>{topic}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="text-center mt-4">
+              <TabsContent value="overview" className="mt-8">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Course Overview</CardTitle>
+                  </CardHeader>
+                  <CardContent className="prose max-w-none">
+                    <p>
+                      This comprehensive course is designed to take you from beginner to professional level.
+                      You'll work on real-world projects, learn industry best practices, and build a portfolio
+                      that will help you land your dream job.
+                    </p>
+                    {isRegistered ? (
+                      <>
                         <p className="text-lg text-muted-foreground mb-6">
-                          Register to unlock all weekly topics and access the full course content!
+                          {course.description}
+                        </p>
+                        <p>
+                          Our experienced instructors provide personalized feedback and mentorship throughout
+                          your learning journey. Join a community of like-minded learners and get the support
+                          you need to succeed.
+                        </p>
+                      </>
+                    ) : (
+                      <div className="text-center">
+                        <p className="text-lg text-muted-foreground mb-6">
+                          Register to unlock the full course overview and start your learning journey!
                         </p>
                         <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
-                          Sign Up to View All Topics
+                          Sign Up to View Overview
                         </Button>
                       </div>
+                    )}
+                  </CardContent>
+                  {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
+                  {isRegistered && (
+                    <>
+                      <Button variant="course" className="mt-6 w-full" size="lg" onClick={() => setRegOpen(true)}>
+                        Enroll Now For This Course
+                      </Button>
+                      <Contactus open={regOpen} setOpen={setRegOpen} />
                     </>
                   )}
-                </CardContent>
-                {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
-                {isRegistered && (
-                  <>
-                    <Button variant="course" className="mt-6 w-full" size="lg" onClick={() => setRegOpen(true)}>
-                      Join This Course
-                    </Button>
-                    <Contactus open={regOpen} setOpen={setRegOpen} />
-                  </>
-                )}
-              </Card>
-            </TabsContent>
+                </Card>
+              </TabsContent>
 
-             <TabsContent value="quizzes" className="mt-8">
-      <Card>
-        <CardHeader>
-          <CardTitle>Practice Quizzes</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {!showQuizUI ? (
-            <div className="grid gap-4">
-              {quizzes.map((quiz, index) => (
-                <div
-                  key={quiz.id}
-                  className={`p-4 border rounded-lg ${quiz.locked ? 'opacity-50' : 'hover:border-primary cursor-pointer'}`}
-                  onClick={() => handleQuizClick(quiz.id, quiz.locked)}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">{quiz.title}</span>
-                    {quiz.locked ? (
-                      <Badge variant="secondary">Locked</Badge>
-                    ) : (
-                      <Badge variant="outline">Available</Badge>
-                    )}
-                  </div>
-                </div>
-              ))}
-              {showRegisterPrompt && (
-                <div className="flex flex-col items-center mt-6">
-                  <p className="mb-3 text-muted-foreground">Please enroll to unlock more quizzes.</p>
-                  <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
-                    Enroll for More Quizzes
-                  </Button>
-                </div>
-              )}
-            </div>
-          ) : (
-            quizQuestions.length ? (
-              quizCompleted ? (
-                <div className="text-center mt-8">
-                  <h3 className="text-2xl font-bold mb-4">Quiz Completed!</h3>
-                  <p className="text-lg mb-2">Your Score: <span className="font-semibold">{score} / {quizQuestions.length}</span></p>
-                  {getCupInfo(score) && (
-                    <div className="flex flex-col items-center mt-4">
-                      <FaTrophy size={64} color={getCupInfo(score)!.color} />
-                      <span className="mt-2 text-lg font-semibold" style={{ color: getCupInfo(score)!.color }}>{getCupInfo(score)!.label}</span>
-                    </div>
-                  )}
-                  {!getCupInfo(score) && (
-                    <span className="text-muted-foreground">Keep practicing to earn a cup!</span>
-                  )}
-                  <div className="flex justify-center mt-6">
-                    <Button variant="ghost" onClick={() => {
-                      setShowQuizUI(false);
-                      setQuizCompleted(false);
-                      setScore(0);
-                      setAnswers([]);
-                      setCurrentQuestionIndex(0);
-                    }}>Back to Quizzes</Button>
-                  </div>
-                </div>
-              ) : (
-                <div className="max-w-xl mx-auto">
-                  <h4 className="font-semibold mb-4">{currentQuizTitle}</h4>
-                  <div className="mb-6">
-                    <h5 className="font-semibold mb-2">Question {currentQuestionIndex + 1}: {quizQuestions[currentQuestionIndex].question_text}</h5>
-                    <div className="grid gap-2">
-                      {["a", "b", "c", "d"].map((opt) => (
-                        <Button
-                          key={opt}
-                          variant={answers.find((ans) => ans.question_id === quizQuestions[currentQuestionIndex].id)?.selected_option === opt ? "course" : "outline"}
-                          className="w-full text-left"
-                          onClick={() => handleQuizOptionSelect(quizQuestions[currentQuestionIndex].id, opt)}
+              <TabsContent value="projects" className="mt-8">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Hands-on Projects</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid gap-4">
+                      {course.projects.map((project, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center space-x-3 p-4 border rounded-lg cursor-pointer hover:border-primary"
+                          onClick={() => {
+                            setSelectedProject(index);
+                            if (!isRegistered) {
+                              setRegDialogOpen(true);
+                            }
+                          }}
                         >
-                          <span className="font-bold mr-2">{opt.toUpperCase()}.</span>
-                          {quizQuestions[currentQuestionIndex][`option_${opt}`]}
-                        </Button>
+                          <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
+                            {index + 1}
+                          </div>
+                          <span className="font-medium">{project}</span>
+                        </div>
                       ))}
                     </div>
-                  </div>
-                  <div className="flex justify-between mt-6">
-                    <Button
-                      variant="outline"
-                      onClick={handlePrevQuestion}
-                      disabled={currentQuestionIndex === 0}
-                    >
-                      Previous
-                    </Button>
-                    {currentQuestionIndex < quizQuestions.length - 1 ? (
-                      <Button
-                        variant="course"
-                        onClick={handleNextQuestion}
-                      >
-                        Next
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="course"
-                        onClick={handleQuizSubmit}
-                        disabled={answers.length !== quizQuestions.length}
-                      >
-                        Submit Quiz
-                      </Button>
-                    )}
-                  </div>
-                  <div className="flex justify-center mt-4">
-                    <Button variant="ghost" onClick={() => {
-                      setShowQuizUI(false);
-                      setAnswers([]);
-                      setCurrentQuestionIndex(0);
-                    }}>Back to Quizzes</Button>
-                  </div>
-                </div>
-              )
-            ) : (
-              <div className="text-center text-muted-foreground">No questions found for this quiz.</div>
-            )
-          )}
-          {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
-        </CardContent>
-      </Card>
-    </TabsContent>
-
-            <TabsContent value="quiz-results" className="mt-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Quiz Results</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {isRegistered ? (
-                    quizResults.length > 0 ? (
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>ID</TableHead>
-                            <TableHead>Title</TableHead>
-                            <TableHead>Score</TableHead>
-                            <TableHead>Total Questions</TableHead>
-                            <TableHead>Time Taken (s)</TableHead>
-                            <TableHead>Submitted At</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {quizResults.map((result) => (
-                            <TableRow key={result.id}>
-                              <TableCell>{result.id}</TableCell>
-                              <TableCell>{result.title}</TableCell>
-                              <TableCell>{result.score}</TableCell>
-                              <TableCell>{result.total_questions}</TableCell>
-                              <TableCell>{result.time_taken}</TableCell>
-                              <TableCell>{new Date(result.submitted_at).toLocaleString()}</TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    ) : (
-                      <div className="text-center text-muted-foreground">No quiz results found.</div>
-                    )
-                  ) : (
-                    <div className="text-center">
-                      <p className="text-lg text-muted-foreground mb-6">
-                        Register to view your quiz results!
-                      </p>
-                      <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
-                        Sign Up to View Results
-                      </Button>
-                    </div>
-                  )}
-                </CardContent>
-                {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="online-compiler" className="mt-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Online Compiler</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                    <div className="lg:col-span-1">
-                      <h3 className="text-lg font-semibold mb-2">Coding Questions</h3>
-                      <Card className="p-4">
-                        <h4 className="font-medium text-primary mb-4">Question Number 1: {codingQuestions[0].title}</h4>
-                        <div className="space-y-4">
-                          <Card className="p-3">
-                            <h5 className="text-sm font-semibold text-primary">Question</h5>
-                            <p className="text-sm text-muted-foreground">{codingQuestions[0].question}</p>
-                          </Card>
-                          <Card className="p-3">
-                            <h5 className="text-sm font-semibold text-primary">Scenario</h5>
-                            <p className="text-sm text-muted-foreground">{codingQuestions[0].scenario}</p>
-                          </Card>
-                          <Card className="p-3">
-                            <h5 className="text-sm font-semibold text-primary">Expected Output</h5>
-                            <p className="text-sm text-muted-foreground whitespace-pre-line">{codingQuestions[0].expectedOutput}</p>
-                          </Card>
+                    {isRegistered && selectedProject !== null && (
+                      <div className="mt-6 p-6 border rounded-lg bg-muted">
+                        <h4 className="text-lg font-semibold mb-2">Project Details</h4>
+                        <p className="mb-2">{course.projectDetails[selectedProject].description}</p>
+                        <div className="mb-2">
+                          <span className="font-semibold">Content: </span>{course.projectDetails[selectedProject].content}
                         </div>
-                      </Card>
-                    </div>
-                    <div className="lg:col-span-3">
-                      <h3 className="text-lg font-semibold mb-2">Code Editor</h3>
-                      <div className="flex items-center space-x-4 mb-4">
-                        <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select Language" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="javascript">JavaScript</SelectItem>
-                            <SelectItem value="python">Python</SelectItem>
-                            <SelectItem value="java">Java</SelectItem>
-                            <SelectItem value="c">C</SelectItem>
-                            <SelectItem value="cpp">C++</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <Button variant="course" onClick={handleRunCode}>Run Code</Button>
-                        <Button variant="outline" onClick={handleClearCode}>Clear</Button>
+                        <div className="mb-4">
+                          <span className="font-semibold">Technologies Used: </span>
+                          {course.projectDetails[selectedProject].technologies.join(", ")}
+                        </div>
+                        <div className="flex justify-center">
+                          <Button variant="course" onClick={() => setShowContactDialog(true)}>
+                            More About This
+                          </Button>
+                        </div>
                       </div>
-                      <div className="code-editor-container" style={{ width: "800px", height: "500px" }}>
-                        <AceEditor
-                          mode="javascript"
-                          theme="monokai"
-                          value={code}
-                          onChange={(newCode) => setCode(newCode)}
-                          name="code-editor"
-                          editorProps={{ $blockScrolling: true }}
-                          setOptions={{
-                            enableBasicAutocompletion: true,
-                            enableLiveAutocompletion: true,
-                            enableSnippets: true,
-                            showLineNumbers: true,
-                            tabSize: 2,
-                            fontSize: 14,
-                            showPrintMargin: false
-                          }}
-                          style={{ width: "980px", height: "500px", borderRadius: "0.5rem" }}
-                          className="border rounded-lg mb-4"
-                        />
+                    )}
+                  </CardContent>
+                </Card>
+                <RegistrationDialog
+                  open={regDialogOpen}
+                  setOpen={(open) => {
+                    setRegDialogOpen(open);
+                    if (!open && selectedProject !== null) {
+                      setIsRegistered(true);
+                    }
+                  }}
+                />
+                <Contactus open={showContactDialog} setOpen={setShowContactDialog} />
+              </TabsContent>
+
+              <TabsContent value="learning" className="mt-8">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>What You'll Learn</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {isRegistered ? (
+                      <>
+                        <div className="grid gap-3">
+                          {course.learningOutcomes.map((outcome, index) => (
+                            <div key={index} className="flex items-start space-x-3">
+                              <div className="w-5 h-5 rounded-full bg-success text-white flex items-center justify-center text-xs mt-0.5">
+                                ✓
+                              </div>
+                              <span>{outcome}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="mt-6 text-muted-foreground">
+                          <p>
+                            By enrolling, you'll gain hands-on experience, personalized feedback, and access to exclusive resources that will accelerate your learning and career growth.
+                          </p>
+                          <p className="mt-2">
+                            Unlock advanced modules, real-world projects, and direct mentorship from industry experts.
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-center">
+                        <p className="text-lg text-muted-foreground mb-6">
+                          Register to unlock the full list of learning outcomes and access all course features!
+                        </p>
+                        <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
+                          Sign Up to View Learning Outcomes
+                        </Button>
                       </div>
-                      <h3 className="text-lg font-semibold mb-2">Output</h3>
-                      <Card className="w-full min-h-[143px] p-4 bg-muted">
-                        {error ? (
-                          <pre className="text-red-600 whitespace-pre-wrap">{error}</pre>
-                        ) : (
-                          <pre className="text-foreground whitespace-pre-wrap">{output || 'Run the code to see output'}</pre>
+                    )}
+                  </CardContent>
+                  {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
+                  {isRegistered && (
+                    <>
+                      <Button variant="course" className="mt-6 w-full" size="lg" onClick={() => setRegOpen(true)}>
+                        Enroll Now For This Course
+                      </Button>
+                      <Contactus open={regOpen} setOpen={setRegOpen} />
+                    </>
+                  )}
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="certification" className="mt-8">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Summer Camp Certification</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {isRegistered ? (
+                      <>
+                        <div className="bg-instructor p-6 rounded-lg mb-6">
+                          <h3 className="text-xl font-semibold mb-4">Industry-Recognized Certificate</h3>
+                          <p className="mb-4">
+                            Upon successful completion of this course, you'll receive a certificate that's
+                            recognized by top tech companies worldwide.
+                          </p>
+                          <ul className="space-y-2">
+                            <li>• Verified completion certificate</li>
+                            <li>• LinkedIn badge for your profile</li>
+                            <li>• Portfolio review and feedback</li>
+                            <li>• Job placement assistance</li>
+                          </ul>
+                        </div>
+                        <div className="bg-muted p-6 rounded-lg mb-6">
+                          <h4 className="text-lg font-semibold mb-2">What You'll Gain from the Camp</h4>
+                          <ul className="list-disc pl-6 space-y-1">
+                            <li>Mastery of in-demand technologies for {course.title}</li>
+                            <li>Real-world project experience and portfolio building</li>
+                            <li>Direct mentorship from industry professionals</li>
+                            <li>Networking opportunities with peers and hiring partners</li>
+                            <li>Access to exclusive webinars and workshops</li>
+                          </ul>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-center">
+                        <p className="text-lg text-muted-foreground mb-6">
+                          Register to unlock certification details and see how this camp can boost your career!
+                        </p>
+                        <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
+                          Sign Up to View Certification Details
+                        </Button>
+                      </div>
+                    )}
+                  </CardContent>
+                  {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
+                  {isRegistered && (
+                    <>
+                      <Button variant="course" className="mt-6 w-full" size="lg" onClick={() => setRegOpen(true)}>
+                        Enroll Now to Get Certificate
+                      </Button>
+                      <Contactus open={regOpen} setOpen={setRegOpen} />
+                    </>
+                  )}
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="topics" className="mt-8">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Weekly Topics</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {isRegistered ? (
+                      <>
+                        <div className="grid gap-3">
+                          {course.weeklyTopics.map((topic, index) => (
+                            <div key={index} className="flex items-center space-x-3 p-3 border rounded-lg">
+                              <span className="text-sm font-medium text-primary">Week {index + 1}</span>
+                              <span>{topic}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="mt-6 text-muted-foreground">
+                          <p>
+                            The course is structured to build your skills week by week, with hands-on assignments and interactive sessions for each topic. By joining, you'll unlock detailed resources, live Q&A, and project-based learning for every module.
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="grid gap-3">
+                          {course.weeklyTopics.slice(0, 6).map((topic, index) => (
+                            <div key={index} className="flex items-center space-x-3 p-3 border rounded-lg">
+                              <span className="text-sm font-medium text-primary">Week {index + 1}</span>
+                              <span>{topic}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="text-center mt-4">
+                          <p className="text-lg text-muted-foreground mb-6">
+                            Register to unlock all weekly topics and access the full course content!
+                          </p>
+                          <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
+                            Sign Up to View All Topics
+                          </Button>
+                        </div>
+                      </>
+                    )}
+                  </CardContent>
+                  {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
+                  {isRegistered && (
+                    <>
+                      <Button variant="course" className="mt-6 w-full" size="lg" onClick={() => setRegOpen(true)}>
+                        Join This Course
+                      </Button>
+                      <Contactus open={regOpen} setOpen={setRegOpen} />
+                    </>
+                  )}
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="quizzes" className="mt-8">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Practice Quizzes</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {!showQuizUI ? (
+                      <div className="grid gap-4">
+                        {quizzes.map((quiz, index) => (
+                          <div
+                            key={quiz.id}
+                            className={`p-4 border rounded-lg ${quiz.locked ? 'opacity-50' : 'hover:border-primary cursor-pointer'}`}
+                            onClick={() => handleQuizClick(quiz.id, quiz.locked)}
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className="font-medium">{quiz.title}</span>
+                              {quiz.locked ? (
+                                <Badge variant="secondary">Locked</Badge>
+                              ) : (
+                                <Badge variant="outline">Available</Badge>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                        {showRegisterPrompt && (
+                          <div className="flex flex-col items-center mt-6">
+                            <p className="mb-3 text-muted-foreground">Please enroll to unlock more quizzes.</p>
+                            <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
+                              Enroll for More Quizzes
+                            </Button>
+                          </div>
                         )}
-                      </Card>
+                      </div>
+                    ) : (
+                      quizQuestions.length ? (
+                        quizCompleted ? (
+                          <div className="text-center mt-8">
+                            <h3 className="text-2xl font-bold mb-4">Quiz Completed!</h3>
+                            <p className="text-lg mb-2">Your Score: <span className="font-semibold">{score} / {quizQuestions.length}</span></p>
+                            {getCupInfo(score) && (
+                              <div className="flex flex-col items-center mt-4">
+                                <FaTrophy size={64} color={getCupInfo(score)!.color} />
+                                <span className="mt-2 text-lg font-semibold" style={{ color: getCupInfo(score)!.color }}>{getCupInfo(score)!.label}</span>
+                              </div>
+                            )}
+                            {!getCupInfo(score) && (
+                              <span className="text-muted-foreground">Keep practicing to earn a cup!</span>
+                            )}
+                            <div className="flex justify-center mt-6">
+                              <Button variant="ghost" onClick={() => {
+                                setShowQuizUI(false);
+                                setQuizCompleted(false);
+                                setScore(0);
+                                setAnswers([]);
+                                setCurrentQuestionIndex(0);
+                              }}>Back to Quizzes</Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="max-w-xl mx-auto">
+                            <h4 className="font-semibold mb-4">{currentQuizTitle}</h4>
+                            <div className="mb-6">
+                              <h5 className="font-semibold mb-2">Question {currentQuestionIndex + 1}: {quizQuestions[currentQuestionIndex].question_text}</h5>
+                              <div className="grid gap-2">
+                                {["a", "b", "c", "d"].map((opt) => (
+                                  <Button
+                                    key={opt}
+                                    variant={answers.find((ans) => ans.question_id === quizQuestions[currentQuestionIndex].id)?.selected_option === opt ? "course" : "outline"}
+                                    className="w-full text-left"
+                                    onClick={() => handleQuizOptionSelect(quizQuestions[currentQuestionIndex].id, opt)}
+                                  >
+                                    <span className="font-bold mr-2">{opt.toUpperCase()}.</span>
+                                    {quizQuestions[currentQuestionIndex][`option_${opt}`]}
+                                  </Button>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="flex justify-between mt-6">
+                              <Button
+                                variant="outline"
+                                onClick={handlePrevQuestion}
+                                disabled={currentQuestionIndex === 0}
+                              >
+                                Previous
+                              </Button>
+                              {currentQuestionIndex < quizQuestions.length - 1 ? (
+                                <Button
+                                  variant="course"
+                                  onClick={handleNextQuestion}
+                                >
+                                  Next
+                                </Button>
+                              ) : (
+                                <Button
+                                  variant="course"
+                                  onClick={handleQuizSubmit}
+                                  disabled={answers.length !== quizQuestions.length}
+                                >
+                                  Submit Quiz
+                                </Button>
+                              )}
+                            </div>
+                            <div className="flex justify-center mt-4">
+                              <Button variant="ghost" onClick={() => {
+                                setShowQuizUI(false);
+                                setAnswers([]);
+                                setCurrentQuestionIndex(0);
+                              }}>Back to Quizzes</Button>
+                            </div>
+                          </div>
+                        )
+                      ) : (
+                        <div className="text-center text-muted-foreground">No questions found for this quiz.</div>
+                      )
+                    )}
+                    {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="quiz-results" className="mt-8">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Quiz Results</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {isRegistered ? (
+                      quizResults.length > 0 ? (
+                        <Table>
+                          <TableHeader>
+                            <TableRow>
+                              <TableHead>ID</TableHead>
+                              <TableHead>Title</TableHead>
+                              <TableHead>Score</TableHead>
+                              <TableHead>Total Questions</TableHead>
+                              <TableHead>Time Taken (s)</TableHead>
+                              <TableHead>Submitted At</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            {quizResults.map((result) => (
+                              <TableRow key={result.id}>
+                                <TableCell>{result.id}</TableCell>
+                                <TableCell>{result.title}</TableCell>
+                                <TableCell>{result.score}</TableCell>
+                                <TableCell>{result.total_questions}</TableCell>
+                                <TableCell>{result.time_taken}</TableCell>
+                                <TableCell>{new Date(result.submitted_at).toLocaleString()}</TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      ) : (
+                        <div className="text-center text-muted-foreground">No quiz results found.</div>
+                      )
+                    ) : (
+                      <div className="text-center">
+                        <p className="text-lg text-muted-foreground mb-6">
+                          Register to view your quiz results!
+                        </p>
+                        <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
+                          Sign Up to View Results
+                        </Button>
+                      </div>
+                    )}
+                  </CardContent>
+                  {!isRegistered && <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />}
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="online-compiler" className="mt-8">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Online Compiler</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                      <div className="lg:col-span-1">
+                        <h3 className="text-lg font-semibold mb-2">Coding Questions</h3>
+                        <Card className="p-4">
+                          <h4 className="font-medium text-primary mb-4">Question Number 1: {codingQuestions[0].title}</h4>
+                          <div className="space-y-4">
+                            <Card className="p-3">
+                              <h5 className="text-sm font-semibold text-primary">Question</h5>
+                              <p className="text-sm text-muted-foreground">{codingQuestions[0].question}</p>
+                            </Card>
+                            <Card className="p-3">
+                              <h5 className="text-sm font-semibold text-primary">Scenario</h5>
+                              <p className="text-sm text-muted-foreground">{codingQuestions[0].scenario}</p>
+                            </Card>
+                            <Card className="p-3">
+                              <h5 className="text-sm font-semibold text-primary">Expected Output</h5>
+                              <p className="text-sm text-muted-foreground whitespace-pre-line">{codingQuestions[0].expectedOutput}</p>
+                            </Card>
+                          </div>
+                        </Card>
+                      </div>
+                      <div className="lg:col-span-3">
+                        <h3 className="text-lg font-semibold mb-2">Code Editor</h3>
+                        <div className="flex items-center space-x-4 mb-4">
+                          <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue placeholder="Select Language" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="javascript">JavaScript</SelectItem>
+                              <SelectItem value="python">Python</SelectItem>
+                              <SelectItem value="java">Java</SelectItem>
+                              <SelectItem value="c">C</SelectItem>
+                              <SelectItem value="cpp">C++</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <Button variant="course" onClick={handleRunCode}>Run Code</Button>
+                          <Button variant="outline" onClick={handleClearCode}>Clear</Button>
+                        </div>
+                        <div className="code-editor-container" style={{ width: "800px", height: "500px" }}>
+                          <AceEditor
+                            mode="javascript"
+                            theme="monokai"
+                            value={code}
+                            onChange={(newCode) => setCode(newCode)}
+                            name="code-editor"
+                            editorProps={{ $blockScrolling: true }}
+                            setOptions={{
+                              enableBasicAutocompletion: true,
+                              enableLiveAutocompletion: true,
+                              enableSnippets: true,
+                              showLineNumbers: true,
+                              tabSize: 2,
+                              fontSize: 14,
+                              showPrintMargin: false
+                            }}
+                            style={{ width: "980px", height: "500px", borderRadius: "0.5rem" }}
+                            className="border rounded-lg mb-4"
+                          />
+                        </div>
+                        <h3 className="text-lg font-semibold mb-2">Output</h3>
+                        <Card className="w-full min-h-[143px] p-4 bg-muted">
+                          {error ? (
+                            <pre className="text-red-600 whitespace-pre-wrap">{error}</pre>
+                          ) : (
+                            <pre className="text-foreground whitespace-pre-wrap">{output || 'Run the code to see output'}</pre>
+                          )}
+                        </Card>
+                      </div>
                     </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="attendance" className="mt-8">
+                {isRegistered ? (
+                  <Attendance />
+                ) : (
+                  <div className="text-center py-12">
+                    <p className="text-lg text-muted-foreground mb-6">You are not registered yet. Register now to access attendance tracking!</p>
+                    <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
+                      Register Now
+                    </Button>
                   </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="attendance" className="mt-8">
-              {isRegistered ? (
-                <Attendance />
-              ) : (
-                <div className="text-center py-12">
-                  <p className="text-lg text-muted-foreground mb-6">You are not registered yet. Register now to access attendance tracking!</p>
-                  <Button variant="course" size="lg" onClick={() => setRegDialogOpen(true)}>
-                    Register Now
-                  </Button>
-                </div>
-              )}
-            </TabsContent>
-          </Tabs>
-        </div>
-      </section>
-
-      <section className="py-16 bg-muted">
-        <div className="container mx-auto px-4">
-          <Card>
-            <CardContent className="p-8">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-                <div className="text-center lg:text-left">
-                  <img
-                    src={instructorPortrait}
-                    alt={course.instructor}
-                    className="w-32 h-32 rounded-full mx-auto lg:mx-0 mb-4 object-cover"
-                  />
-                </div>
-                <div className="lg:col-span-2">
-                  <h3 className="text-2xl font-bold mb-2">Meet Your Instructor</h3>
-                  <h4 className="text-xl text-primary mb-4">{course.instructor}</h4>
-                  <p className="text-muted-foreground mb-4">
-                    With over 8 years of industry experience, {course.instructor} has worked at top
-                    companies and trained thousands of students. She brings real-world expertise and
-                    practical knowledge to every lesson.
-                  </p>
-                  <div className="flex space-x-4 text-sm">
-                    <span>🎓 PhD in {id === "data-science" ? "Data Science" : id === "digital-marketing" ? "Marketing" : "Computer Science"}</span>
-                    <span>💼 Ex-{id === "data-science" ? "Amazon, IBM" : id === "digital-marketing" ? "HubSpot, Google" : "Google, Meta"}</span>
-                    <span>⭐ 4.9/5 Rating</span>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Upcoming Batches</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Weekday Batch",
-                desc: "Mon-Fri, 7PM-9PM",
-                start: "Starts: Jan 15, 2024"
-              },
-              {
-                title: "Weekend Batch",
-                desc: "Sat-Sun, 10AM-2PM",
-                start: "Starts: Jan 20, 2024"
-              },
-              {
-                title: "Intensive Batch",
-                desc: "Mon-Fri, 9AM-5PM",
-                start: "Starts: Feb 1, 2024"
-              }
-            ].map((batch, idx) => (
-              <Card className="text-center p-6" key={batch.title}>
-                <CardContent>
-                  <h3 className="text-lg font-semibold mb-2">{batch.title}</h3>
-                  <p className="text-muted-foreground mb-4">{batch.desc}</p>
-                  <p className="font-semibold text-primary mb-4">{batch.start}</p>
-                  <Button
-                    variant="course"
-                    className="w-full"
-                    onClick={() => setRegOpen(true)}
-                  >
-                    Enroll Now
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                )}
+              </TabsContent>
+            </Tabs>
           </div>
-          <Contactus open={regOpen} setOpen={setRegOpen} />
-        </div>
-      </section>
+        </section>
+
+        <section className="py-16 bg-muted">
+          <div className="container mx-auto px-4">
+            <Card>
+              <CardContent className="p-8">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                  <div className="text-center lg:text-left">
+                    <img
+                      src={instructorPortrait || "https://via.placeholder.com/128?text=Instructor"}
+                      alt={course.instructor}
+                      className="w-32 h-32 rounded-full mx-auto lg:mx-0 mb-4 object-cover"
+                    />
+                  </div>
+                  <div className="lg:col-span-2">
+                    <h3 className="text-2xl font-bold mb-2">Meet Your Instructor</h3>
+                    <h4 className="text-xl text-primary mb-4">{course.instructor}</h4>
+                    <p className="text-muted-foreground mb-4">
+                      {id === "Cloud + DevOps Program" ? (
+                        <>
+                          With over 15.5 years of experience in the IT industry, Malleshwar brings a deep and practical understanding of DevOps practices, cloud engineering, and cross-platform infrastructure management. His expertise spans the full DevOps lifecycle — from CI/CD automation and container orchestration to monitoring, IaC, and cloud-native deployment.
+                        </>
+                      ) : id === "web-development" ? (
+                        <>
+                          With 7.5 years of professional experience, S. Vamsi has worked across startups and enterprises, crafting user-centric interfaces and developing responsive, modern web applications. He brings a dual mastery in UI/UX design and frontend development, enabling learners to understand both form and function in digital product design.
+                        </>
+                      ) : (
+                        <>Instructor details not available for this course.</>
+                      )}
+                    </p>
+                    <div className="flex flex-wrap space-x-4 text-sm">
+                      {id === "Cloud + DevOps Program" ? (
+                        <>
+                          <span>🎓 DevOps & Multi-Cloud Expert</span>
+                          <span>💼 Ex-BFSI, SaaS, EdTech</span>
+                          <span>⭐ 15.5+ Years Experience</span>
+                          <span>☁️ 7+ Years with AWS</span>
+                          <span>🌐 8.5 Years in Multi-Cloud (AWS, Azure, GCP)</span>
+                        </>
+                      ) : id === "web-development" ? (
+                        <>
+                          <span>🎓 UI/UX Design & Frontend Development</span>
+                          <span>💼 Ex-EdTech, SaaS, E-commerce</span>
+                          <span>⭐ 7.5 Years Experience</span>
+                          <span>🖌️ Figma, Adobe XD, Illustrator</span>
+                          <span>💻 HTML, CSS, JavaScript, React</span>
+                        </>
+                      ) : (
+                        <span>⭐ Details not available</span>
+                      )}
+                    </div>
+                    <p className="text-muted-foreground italic mt-4">
+                      {id === "Cloud + DevOps Program"
+                        ? `"My goal is to not just teach DevOps tools, but to help you think like a cloud engineer." – Malleshwar`
+                        : id === "web-development"
+                        ? `"Design is not just how it looks — it's how it works, flows, and converts." – S. Vamsi`
+                     : "No quote available."}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12">Upcoming Batches</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Weekday Batch",
+                  desc: "Mon-Fri, 7PM-9PM",
+                  start: "Starts: Jan 15, 2024"
+                },
+                {
+                  title: "Weekend Batch",
+                  desc: "Sat-Sun, 10AM-2PM",
+                  start: "Starts: Jan 20, 2024"
+                },
+                {
+                  title: "Intensive Batch",
+                  desc: "Mon-Fri, 9AM-5PM",
+                  start: "Starts: Feb 1, 2024"
+                }
+              ].map((batch, idx) => (
+                <Card className="text-center p-6" key={batch.title}>
+                  <CardContent>
+                    <h3 className="text-lg font-semibold mb-2">{batch.title}</h3>
+                    <p className="text-muted-foreground mb-4">{batch.desc}</p>
+                    <p className="font-semibold text-primary mb-4">{batch.start}</p>
+                    <Button
+                      variant="course"
+                      className="w-full"
+                      onClick={() => setRegOpen(true)}
+                    >
+                      Enroll Now
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <Contactus open={regOpen} setOpen={setRegOpen} />
+          </div>
+        </section>
+      </main>
 
       <RegistrationDialog open={regDialogOpen} setOpen={setRegDialogOpen} />
       <Footer />
